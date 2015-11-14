@@ -14,14 +14,15 @@ Pod::Spec.new do |s|
                    'Dependencies/Gamut/*.c',
                    'Dependencies/Incandescence/*.c',
                    'Dependencies/Tide/*.c',
+                   'Aeon/**/*.swift',
                    'Currents/**/*.swift',
                    'Kalopsia/**/*.swift',
                    'Luminescence/**/*.swift',
-                   'Aeon/**/*.swift',
+                   'Spectrum/**/*.swift',
                    'Spell/**/*.swift'
 
   s.xcconfig =  {
-    'SWIFT_INCLUDE_PATHS' => '$(SRCROOT)/Spectrum/Dependencies'
+    'SWIFT_INCLUDE_PATHS' => '$(SRCROOT)/Spell/Dependencies'
   }
 
   s.preserve_paths = 'Dependencies/*'
