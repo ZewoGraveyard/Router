@@ -35,12 +35,9 @@ class SpectrumTests: XCTestCase {
             }
         }
 
-        let server = HTTPServer(port: 8080, responder: router)
-        server.start()
-
         var request = HTTPRequest(
             method: .GET,
-            uri: URI(string: "/user/paulo")
+            uri: URI(path: "/user/paulo")
         )
 
         router.respond(request) { response in
@@ -49,7 +46,7 @@ class SpectrumTests: XCTestCase {
 
         request = HTTPRequest(
             method: .GET,
-            uri: URI(string: "/")
+            uri: URI(path: "/")
         )
 
         router.respond(request) { response in
