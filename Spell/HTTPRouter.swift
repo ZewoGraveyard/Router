@@ -23,40 +23,55 @@
 // SOFTWARE.
 
 public struct HTTPRouter : HTTPResponderType {
-    private var routes: [HTTPRoute]
-    private var fallback: HTTPContext -> Void
+    struct HTTPRoute : HTTPResponderType {
+        let path: String
+        let methods: Set<HTTPMethod>
+        let respond: HTTPContext -> Void
 
-    public func respond(request: HTTPRequest, completion: HTTPResponse -> Void) {
-        for route in routes {
-            if route.matchesRequest(request) {
-                route.respond(request, completion: completion)
-                return
-            }
+        private let parameterKeys: [String]
+        private let regularExpression: Regex
+
+        init(path: String, methods: Set<HTTPMethod>, respond: HTTPContext -> Void) {
+            self.path = path
+            self.methods = methods
+            self.respond = respond
+
+            let parameterRegularExpression = try! Regex(pattern: ":([[:alnum:]]+)")
+            let pattern = parameterRegularExpression.replace(path, withTemplate: "([[:alnum:]]+)")
+
+            self.parameterKeys = parameterRegularExpression.groups(path)
+            self.regularExpression = try! Regex(pattern: "^" + pattern + "$")
         }
-        fallback(HTTPContext(request: request, completion: completion))
-    }
 
-    public init(basePath: String = "", _ build: (router: HTTPRouterBuilder) -> Void) {
-        let routerBuilder = HTTPRouterBuilder(basePath: basePath)
-        build(router: routerBuilder)
+        func matchesRequest(request: HTTPRequest) -> Bool {
+            return regularExpression.matches(request.uri.path!) && methods.contains(request.method)
+        }
 
-        fallback = routerBuilder.fallback
-        routes = routerBuilder.routes
+        func respond(request: HTTPRequest, completion: HTTPResponse -> Void) {
+            let values = self.regularExpression.groups(request.uri.path!)
+            var context = HTTPContext(request: request, completion: completion)
+
+            for (index, key) in parameterKeys.enumerate() {
+                context.parameters[key] = values[index]
+            }
+            
+            respond(context)
+        }
     }
 
     public final class HTTPRouterBuilder {
-        private let basePath: String
-        private var routes: [HTTPRoute] = []
+        let basePath: String
+        var routes: [HTTPRoute] = []
 
         init(basePath: String) {
             self.basePath = basePath
         }
 
         var fallback: HTTPContext -> Void = { context in
-            context.send(HTTPResponse(status: .NotFound))
+            context.send(HTTPResponse(statusCode: 404, reasonPhrase: "Not Found"))
         }
 
-        public func group(basePath: String, _ build: (group: HTTPRouterBuilder) -> Void) {
+        public func group(basePath: String, build: (group: HTTPRouterBuilder) -> Void) {
             let groupBuilder = HTTPRouterBuilder(basePath: basePath)
             build(group: groupBuilder)
 
@@ -65,21 +80,27 @@ public struct HTTPRouter : HTTPResponderType {
             }
         }
 
-        public func fallback(f: HTTPContext -> Void) {
-            self.fallback = f
+        public func fallback(fallback: HTTPContext -> Void) {
+            self.fallback = fallback
         }
 
-        public func any(path: String, _ respond: HTTPContext -> Void) {
+        public func any(path: String, respond: HTTPContext -> Void) {
             let route = HTTPRoute(
                 path: basePath + path,
-                methods: [.GET, .POST, .PUT, .PATCH, .DELETE],
+                methods: [
+                    .GET,
+                    .POST,
+                    .PUT,
+                    .PATCH,
+                    .DELETE
+                ],
                 respond: respond
             )
 
             routes.append(route)
         }
 
-        public func get(path: String, _ respond: HTTPContext -> Void) {
+        public func get(path: String, respond: HTTPContext -> Void) {
             let route = HTTPRoute(
                 path: basePath + path,
                 methods: [.GET],
@@ -89,7 +110,7 @@ public struct HTTPRouter : HTTPResponderType {
             routes.append(route)
         }
 
-        public func post(path: String, _ respond: HTTPContext -> Void) {
+        public func post(path: String, respond: HTTPContext -> Void) {
             let route = HTTPRoute(
                 path: basePath + path,
                 methods: [.POST],
@@ -99,7 +120,7 @@ public struct HTTPRouter : HTTPResponderType {
             routes.append(route)
         }
 
-        public func put(path: String, _ respond: HTTPContext -> Void) {
+        public func put(path: String, respond: HTTPContext -> Void) {
             let route = HTTPRoute(
                 path: basePath + path,
                 methods: [.PUT],
@@ -109,7 +130,7 @@ public struct HTTPRouter : HTTPResponderType {
             routes.append(route)
         }
 
-        public func patch(path: String, _ respond: HTTPContext -> Void) {
+        public func patch(path: String, respond: HTTPContext -> Void) {
             let route = HTTPRoute(
                 path: basePath + path,
                 methods: [.PATCH],
@@ -119,14 +140,35 @@ public struct HTTPRouter : HTTPResponderType {
             routes.append(route)
         }
 
-        public func delete(path: String, _ respond: HTTPContext -> Void) {
+        public func delete(path: String, respond: HTTPContext -> Void) {
             let route = HTTPRoute(
                 path: basePath + path,
                 methods: [.DELETE],
                 respond: respond
             )
-
+            
             routes.append(route)
         }
+    }
+
+    let routes: [HTTPRoute]
+    let fallback: HTTPContext -> Void
+
+    public init(basePath: String = "", build: (router: HTTPRouterBuilder) -> Void) {
+        let routerBuilder = HTTPRouterBuilder(basePath: basePath)
+        build(router: routerBuilder)
+
+        fallback = routerBuilder.fallback
+        routes = routerBuilder.routes
+    }
+
+    public func respond(request: HTTPRequest, completion: HTTPResponse -> Void) {
+        for route in routes {
+            if route.matchesRequest(request) {
+                route.respond(request, completion: completion)
+                return
+            }
+        }
+        fallback(HTTPContext(request: request, completion: completion))
     }
 }

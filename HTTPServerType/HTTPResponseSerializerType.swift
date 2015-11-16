@@ -1,4 +1,4 @@
-// HTTPResponse+Spell.swift
+// HTTPResponseSerializerType.swift
 //
 // The MIT License (MIT)
 //
@@ -22,12 +22,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-extension HTTPResponse {
-    public init(status: HTTPStatus) {
-        self.init(statusCode: status.statusCode, reasonPhrase: status.reasonPhrase)
-    }
-
-    public var status: HTTPStatus {
-        return HTTPStatus(statusCode: statusCode)
-    }
+public protocol HTTPResponseSerializerType {
+    func serializeResponse(client: TCPStreamType, response: HTTPResponse, completion: (error: ErrorType?) -> Void)
 }

@@ -1,4 +1,4 @@
-// ResponderType.swift
+// HTTPRequestParserType.swift
 //
 // The MIT License (MIT)
 //
@@ -22,6 +22,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-public protocol HTTPResponderType {
-    func respond(request: HTTPRequest, completion: HTTPResponse -> Void)
+public protocol HTTPRequestParserType {
+    func parseRequest(client: TCPStreamType, completion: (request: HTTPRequest?, error: ErrorType?) -> Void)
 }

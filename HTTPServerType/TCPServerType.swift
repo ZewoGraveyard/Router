@@ -1,4 +1,4 @@
-// StreamType.swift
+// TCPServerType.swift
 //
 // The MIT License (MIT)
 //
@@ -22,8 +22,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-public protocol StreamType {
-    func close()
-    func receive(completion: Result<[Int8]> -> Void)
-    func send(buffer: [Int8], completion: Result<Void> -> Void)
+public protocol TCPServerType {
+    func acceptClient(completion: (stream: TCPStreamType?, error: ErrorType?) -> Void)
+    func stop()
 }

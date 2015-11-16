@@ -23,48 +23,43 @@
 // SOFTWARE.
 
 public protocol HTTPServerType {
-    var server: ServerType { get }
+    var server: TCPServerType { get }
     var parser: HTTPRequestParserType { get }
     var responder: HTTPResponderType { get }
-    var serializer: HTTPResponseSerializerType { get }
+    var serializer: HTTPResponseSerializerType  { get }
 }
 
 extension HTTPServerType {
     public func start(failure failure: ErrorType -> Void = Self.defaultFailureHandler) {
-        server.acceptClient { acceptResult in
-            acceptResult.success { client in
-                self.parser.parseRequest(client) { parseResult in
-                    parseResult.success { request in
+        server.acceptClient { client, error in
+            if let error = error {
+                failure(error)
+            } else if let client = client {
+                self.parser.parseRequest(client) { request, error in
+                    if let error = error {
+                        failure(error)
+                        client.close()
+                    } else if let request = request {
                         self.responder.respond(request) { response in
-                            self.serializer.serializeResponse(client, response: response) { serializeResult in
-                                serializeResult.success {
-                                    if !self.keepAlive(request) {
-                                        client.close()
-                                    }
-                                }
-                                serializeResult.failure { error in
+                            self.serializer.serializeResponse(client, response: response) { error in
+                                if let error = error {
                                     failure(error)
                                     client.close()
+                                } else {
+                                    if !request.keepAlive {
+                                        client.close()
+                                    }
                                 }
                             }
                         }
                     }
-                    parseResult.failure { error in
-                        failure(error)
-                        client.close()
-                    }
                 }
             }
-            acceptResult.failure(failure)
         }
     }
 
     public func stop() {
         server.stop()
-    }
-    
-    private func keepAlive(request: HTTPRequest) -> Bool {
-        return request.keepAlive
     }
 
     private static func defaultFailureHandler(error: ErrorType) -> Void {

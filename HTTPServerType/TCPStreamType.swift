@@ -1,4 +1,4 @@
-// Result.swift
+// TCPStreamType.swift
 //
 // The MIT License (MIT)
 //
@@ -22,29 +22,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-public enum Result<T> {
-    case Success(T)
-    case Failure(ErrorType)
-
-    init(_ v: T) {
-        self = Success(v)
-    }
-
-    init(_ e: ErrorType) {
-        self = Failure(e)
-    }
-
-    func success(f: T -> Void) {
-        switch self {
-        case Success(let v): f(v)
-        default: break
-        }
-    }
-
-    func failure(f: ErrorType -> Void) {
-        switch self {
-        case Failure(let e): f(e)
-        default: break
-        }
-    }
+public protocol TCPStreamType {
+    func close()
+    func receive(completion: (data: [Int8], error: ErrorType?) -> Void)
+    func send(data: [Int8], completion: (error: ErrorType?) -> Void)
 }

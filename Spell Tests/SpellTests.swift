@@ -31,9 +31,12 @@ class SpectrumTests: XCTestCase {
             router.get("/user/:id") { context in
                 let id = context.parameters["id"]
                 XCTAssert(id == "paulo")
-                context.send(HTTPResponse(status: .OK))
+                context.send(HTTPResponse(statusCode: 200, reasonPhrase: "OK"))
             }
         }
+
+        let server = HTTPServer(port: 8080, responder: router)
+        server.start()
 
         var request = HTTPRequest(
             method: .GET,
@@ -41,7 +44,7 @@ class SpectrumTests: XCTestCase {
         )
 
         router.respond(request) { response in
-            XCTAssert(response.status == .OK)
+            XCTAssert(response.statusCode == 200)
         }
 
         request = HTTPRequest(
@@ -50,7 +53,7 @@ class SpectrumTests: XCTestCase {
         )
 
         router.respond(request) { response in
-            XCTAssert(response.status == .NotFound)
+            XCTAssert(response.statusCode == 404)
         }
 
     }

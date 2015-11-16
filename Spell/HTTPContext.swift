@@ -26,8 +26,8 @@ public struct HTTPContext {
     public let request: HTTPRequest
     let completion: HTTPResponse -> Void
 
-    public var parameters: [String: String] = [:]
-    public var data: [String: String] = [:]
+    public var parameters: [String : String] = [:]
+    public var data: [String : String] = [:]
 
     public init(request: HTTPRequest, completion: HTTPResponse -> Void) {
         self.request = request
