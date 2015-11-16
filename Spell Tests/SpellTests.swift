@@ -1,4 +1,4 @@
-// SpectrumTests.swift
+// SpellTests.swift
 //
 // The MIT License (MIT)
 //
@@ -28,16 +28,16 @@ import Spell
 class SpectrumTests: XCTestCase {
     func test() {
         let router = HTTPRouter { router in
-            router.get("/user/:id") { context in
+            router.get("/users/:id") { context in
                 let id = context.parameters["id"]
-                XCTAssert(id == "paulo")
+                XCTAssert(id == "1")
                 context.send(HTTPResponse(statusCode: 200, reasonPhrase: "OK"))
             }
         }
 
         var request = HTTPRequest(
             method: .GET,
-            uri: URI(path: "/user/paulo")
+            uri: URI(path: "/users/1")
         )
 
         router.respond(request) { response in
@@ -53,5 +53,69 @@ class SpectrumTests: XCTestCase {
             XCTAssert(response.statusCode == 404)
         }
 
+    }
+
+    func testContextResponderType() {
+        struct UserResponder : HTTPContextResponderType {
+            func respond(context: HTTPContext) {
+                context.send(HTTPResponse(statusCode: 200, reasonPhrase: "OK"))
+            }
+        }
+
+        let router = HTTPRouter { router in
+            router.get("/users", responder: UserResponder())
+        }
+
+        var request = HTTPRequest(
+            method: .GET,
+            uri: URI(path: "/users")
+        )
+
+        router.respond(request) { response in
+            XCTAssert(response.statusCode == 200)
+        }
+
+        request = HTTPRequest(
+            method: .GET,
+            uri: URI(path: "/")
+        )
+
+        router.respond(request) { response in
+            XCTAssert(response.statusCode == 404)
+        }
+    }
+
+    func testResource() {
+        struct UsersResource : HTTPResourceType {
+            func index(context: HTTPContext) {
+                context.send(HTTPResponse(statusCode: 200, reasonPhrase: "OK"))
+            }
+
+            func create(context: HTTPContext) {
+                context.send(HTTPResponse(statusCode: 200, reasonPhrase: "OK"))
+            }
+
+            func show(context: HTTPContext) {
+                context.send(HTTPResponse(statusCode: 200, reasonPhrase: "OK"))
+            }
+
+            func update(context: HTTPContext) {
+                context.send(HTTPResponse(statusCode: 200, reasonPhrase: "OK"))
+            }
+
+            func destroy(context: HTTPContext) {
+                context.send(HTTPResponse(statusCode: 200, reasonPhrase: "OK"))
+            }
+        }
+
+        let router = HTTPRouter { router in
+            router.resources("/users", resources: UsersResource())
+        }
+
+        let request = HTTPRequest(method: .GET, uri: URI(path: "/users/1"))
+
+        router.respond(request) { response in
+            XCTAssert(response.statusCode == 200)
+        }        
     }
 }

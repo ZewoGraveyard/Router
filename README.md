@@ -21,10 +21,6 @@ Spell
 
 **Spell** is made of:
 
-- [Currents](https://github.com/Zewo/Currents) - TCP/IP
-- [Luminescence](https://github.com/Zewo/Luminescence) - HTTP parser
-- [Kalopsia](https://github.com/Zewo/Kalopsia) - GCD wrapper
-- [Aeon](https://github.com/Zewo/Aeon) - HTTP server
 - [Spectrum](https://github.com/Zewo/Spectrum) - POSIX regex
 
 ## Usage
@@ -36,9 +32,6 @@ let router = HTTPRouter { router in
         context.send(HTTPResponse(status: .OK))
     }
 }
-
-let server = HTTPServer(port: 8080, responder: router)
-server.start()
 ```
 
 ## Installation

@@ -1,4 +1,4 @@
-// incandescence_swift.c
+// HTTPContextResponderType.swift
 //
 // The MIT License (MIT)
 //
@@ -22,31 +22,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include "incandescence_swift.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-struct parsed_uri parse_uri(const char *uri_string) {
-    struct http_parser_url u;
-    http_parser_parse_url(uri_string, strlen(uri_string), 0, &u);
-
-    struct parsed_uri uri = {
-        u.field_set,
-        u.field_data[0].off,
-        u.field_data[0].off + u.field_data[0].len,
-        u.field_data[6].off,
-        u.field_data[6].off + u.field_data[6].len,
-        u.field_data[1].off,
-        u.field_data[1].off + u.field_data[1].len,
-        u.port,
-        u.field_data[3].off,
-        u.field_data[3].off + u.field_data[3].len,
-        u.field_data[4].off,
-        u.field_data[4].off + u.field_data[4].len,
-        u.field_data[5].off,
-        u.field_data[5].off + u.field_data[5].len,
-    };
-
-    return uri;
+public protocol HTTPContextResponderType {
+    func respond(context: HTTPContext)
 }

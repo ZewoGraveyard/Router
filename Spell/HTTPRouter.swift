@@ -84,6 +84,10 @@ public struct HTTPRouter : HTTPResponderType {
             self.fallback = fallback
         }
 
+        public func fallback(responder: HTTPContextResponderType) {
+            fallback(responder.respond)
+        }
+
         public func any(path: String, respond: HTTPContext -> Void) {
             let route = HTTPRoute(
                 path: basePath + path,
@@ -100,6 +104,10 @@ public struct HTTPRouter : HTTPResponderType {
             routes.append(route)
         }
 
+        public func any(path: String, responder: HTTPContextResponderType) {
+            any(path, respond: responder.respond)
+        }
+
         public func get(path: String, respond: HTTPContext -> Void) {
             let route = HTTPRoute(
                 path: basePath + path,
@@ -108,6 +116,10 @@ public struct HTTPRouter : HTTPResponderType {
             )
 
             routes.append(route)
+        }
+
+        public func get(path: String, responder: HTTPContextResponderType) {
+            get(path, respond: responder.respond)
         }
 
         public func post(path: String, respond: HTTPContext -> Void) {
@@ -120,6 +132,10 @@ public struct HTTPRouter : HTTPResponderType {
             routes.append(route)
         }
 
+        public func post(path: String, responder: HTTPContextResponderType) {
+            post(path, respond: responder.respond)
+        }
+
         public func put(path: String, respond: HTTPContext -> Void) {
             let route = HTTPRoute(
                 path: basePath + path,
@@ -128,6 +144,10 @@ public struct HTTPRouter : HTTPResponderType {
             )
 
             routes.append(route)
+        }
+
+        public func put(path: String, responder: HTTPContextResponderType) {
+            put(path, respond: responder.respond)
         }
 
         public func patch(path: String, respond: HTTPContext -> Void) {
@@ -140,6 +160,10 @@ public struct HTTPRouter : HTTPResponderType {
             routes.append(route)
         }
 
+        public func patch(path: String, responder: HTTPContextResponderType) {
+            patch(path, respond: responder.respond)
+        }
+
         public func delete(path: String, respond: HTTPContext -> Void) {
             let route = HTTPRoute(
                 path: basePath + path,
@@ -148,6 +172,29 @@ public struct HTTPRouter : HTTPResponderType {
             )
             
             routes.append(route)
+        }
+
+        public func delete(path: String, responder: HTTPContextResponderType) {
+            delete(path, respond: responder.respond)
+        }
+
+        // TODO: Use regex to validate the path string.
+        public func resources<T: HTTPResourceType>(path: String, resources: T) {
+            get(basePath + path, respond: resources.index)
+            post(basePath + path, respond: resources.create)
+            get(basePath + path + "/:id", respond: resources.show)
+            put(basePath + path + "/:id", respond: resources.update)
+            patch(basePath + path + "/:id", respond: resources.update)
+            delete(basePath + path + "/:id", respond: resources.destroy)
+        }
+
+        // TODO: Use regex to validate the path string.
+        public func resource<T: HTTPResourceType>(path: String, resources: T) {
+            get(basePath + path, respond: resources.index)
+            post(basePath + path, respond: resources.create)
+            put(basePath + path, respond: resources.update)
+            patch(basePath + path, respond: resources.update)
+            delete(basePath + path, respond: resources.destroy)
         }
     }
 

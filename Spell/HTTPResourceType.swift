@@ -1,4 +1,4 @@
-// tide_swift.h
+// HTTPResourceType.swift
 //
 // The MIT License (MIT)
 //
@@ -21,9 +21,33 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-#ifndef tide_swift_h
-#define tide_swift_h
 
-#import "tcp.h"
+public protocol HTTPResourceType {
+    func index(context: HTTPContext)
+    func create(context: HTTPContext)
+    func show(context: HTTPContext)
+    func update(context: HTTPContext)
+    func destroy(context: HTTPContext)
+}
 
-#endif /* tide_swift_h */
+extension HTTPResourceType {
+    func index(context: HTTPContext) {
+        return context.send(HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed"))
+    }
+
+    func create(context: HTTPContext) {
+        return context.send(HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed"))
+    }
+
+    func show(context: HTTPContext) {
+        return context.send(HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed"))
+    }
+
+    func update(context: HTTPContext) {
+        return context.send(HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed"))
+    }
+
+    func destroy(context: HTTPContext) {
+        return context.send(HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed"))
+    }
+}

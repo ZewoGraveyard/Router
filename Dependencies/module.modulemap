@@ -1,18 +1,3 @@
-module Tide [system] {
-    header "Tide/tide_swift.h"
-    export *
-}
-
-module Incandescence [system] {
-    header "Incandescence/incandescence_swift.h"
-    export *
-}
-
-module Belle [system] {
-    header "Belle/belle_swift.h"
-    export *
-}
-
 module Gamut [system] {
     header "Gamut/gamut_swift.h"
     export *
