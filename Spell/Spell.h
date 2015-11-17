@@ -1,4 +1,4 @@
-// Spectrum.h
+// Spell.h
 //
 // The MIT License (MIT)
 //

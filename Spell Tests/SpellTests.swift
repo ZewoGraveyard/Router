@@ -25,40 +25,31 @@
 import XCTest
 import Spell
 
-class SpectrumTests: XCTestCase {
+class SpellTests: XCTestCase {
     func test() {
         let router = HTTPRouter { router in
-            router.get("/users/:id") { context in
-                let id = context.parameters["id"]
+            router.get("/users/:id") { request in
+                let id = request.parameters["id"]
                 XCTAssert(id == "1")
-                context.send(HTTPResponse(statusCode: 200, reasonPhrase: "OK"))
+                return HTTPResponse(statusCode: 200, reasonPhrase: "OK")
             }
         }
 
-        var request = HTTPRequest(
-            method: .GET,
-            uri: URI(path: "/users/1")
-        )
+        var request = HTTPRequest(method: .GET, uri: URI(path: "/users/1"))
 
-        router.respond(request) { response in
-            XCTAssert(response.statusCode == 200)
-        }
+        var response = try! router.respond(request)
+        XCTAssert(response.statusCode == 200)
 
-        request = HTTPRequest(
-            method: .GET,
-            uri: URI(path: "/")
-        )
+        request = HTTPRequest(method: .GET, uri: URI(path: "/"))
 
-        router.respond(request) { response in
-            XCTAssert(response.statusCode == 404)
-        }
-
+        response = try! router.respond(request)
+        XCTAssert(response.statusCode == 404)
     }
 
     func testContextResponderType() {
-        struct UserResponder : HTTPContextResponderType {
-            func respond(context: HTTPContext) {
-                context.send(HTTPResponse(statusCode: 200, reasonPhrase: "OK"))
+        struct UserResponder : HTTPFallibleResponderType {
+            func respond(request: HTTPRequest) -> HTTPResponse {
+                return HTTPResponse(statusCode: 200, reasonPhrase: "OK")
             }
         }
 
@@ -66,45 +57,37 @@ class SpectrumTests: XCTestCase {
             router.get("/users", responder: UserResponder())
         }
 
-        var request = HTTPRequest(
-            method: .GET,
-            uri: URI(path: "/users")
-        )
+        var request = HTTPRequest(method: .GET, uri: URI(path: "/users"))
 
-        router.respond(request) { response in
-            XCTAssert(response.statusCode == 200)
-        }
+        var response = try! router.respond(request)
+        XCTAssert(response.statusCode == 200)
 
-        request = HTTPRequest(
-            method: .GET,
-            uri: URI(path: "/")
-        )
+        request = HTTPRequest(method: .GET, uri: URI(path: "/"))
 
-        router.respond(request) { response in
-            XCTAssert(response.statusCode == 404)
-        }
+        response = try! router.respond(request)
+        XCTAssert(response.statusCode == 404)
     }
 
     func testResource() {
         struct UsersResource : HTTPResourceType {
-            func index(context: HTTPContext) {
-                context.send(HTTPResponse(statusCode: 200, reasonPhrase: "OK"))
+            func index(request: HTTPRequest) -> HTTPResponse {
+                return HTTPResponse(statusCode: 200, reasonPhrase: "OK")
             }
 
-            func create(context: HTTPContext) {
-                context.send(HTTPResponse(statusCode: 200, reasonPhrase: "OK"))
+            func create(request: HTTPRequest) -> HTTPResponse {
+                return HTTPResponse(statusCode: 200, reasonPhrase: "OK")
             }
 
-            func show(context: HTTPContext) {
-                context.send(HTTPResponse(statusCode: 200, reasonPhrase: "OK"))
+            func show(request: HTTPRequest) -> HTTPResponse {
+                return HTTPResponse(statusCode: 200, reasonPhrase: "OK")
             }
 
-            func update(context: HTTPContext) {
-                context.send(HTTPResponse(statusCode: 200, reasonPhrase: "OK"))
+            func update(request: HTTPRequest) -> HTTPResponse {
+                return HTTPResponse(statusCode: 200, reasonPhrase: "OK")
             }
 
-            func destroy(context: HTTPContext) {
-                context.send(HTTPResponse(statusCode: 200, reasonPhrase: "OK"))
+            func destroy(request: HTTPRequest) -> HTTPResponse {
+                return HTTPResponse(statusCode: 200, reasonPhrase: "OK")
             }
         }
 
@@ -114,8 +97,7 @@ class SpectrumTests: XCTestCase {
 
         let request = HTTPRequest(method: .GET, uri: URI(path: "/users/1"))
 
-        router.respond(request) { response in
-            XCTAssert(response.statusCode == 200)
-        }        
+        let response = try! router.respond(request)
+        XCTAssert(response.statusCode == 200)
     }
 }

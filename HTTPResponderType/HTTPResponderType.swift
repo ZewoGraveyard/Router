@@ -23,5 +23,5 @@
 // SOFTWARE.
 
 public protocol HTTPResponderType {
-    func respond(request: HTTPRequest, completion: HTTPResponse -> Void)
+    func respond(request: HTTPRequest) -> HTTPResponse
 }

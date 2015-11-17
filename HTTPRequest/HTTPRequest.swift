@@ -29,7 +29,10 @@ public struct HTTPRequest {
     public let minorVersion: Int
     public let headers: [String: String]
     public let body: [Int8]
+
     public let keepAlive: Bool
+    public var parameters: [String : String] = [:]
+    public var data: [String : String] = [:]
 
     public init(method: HTTPMethod, uri: URI, majorVersion: Int = 1, minorVersion: Int = 1, headers: [String: String] = [:], body: [Int8] = [], keepAlive: Bool = false) {
         self.method = method

@@ -27,9 +27,9 @@ Spell
 
 ```swift
 let router = HTTPRouter { router in
-    router.get("/user/:id") { context in
-        let id = context.parameters["id"]
-        context.send(HTTPResponse(status: .OK))
+    router.get("/users/:id") { request in
+        let id = request.parameters["id"]
+        return HTTPResponse(statusCode: 200, reasonPhrase: "OK")
     }
 }
 ```

@@ -22,19 +22,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-public struct HTTPRouter : HTTPResponderType {
-    struct HTTPRoute : HTTPResponderType {
+public struct HTTPRouter : HTTPFallibleResponderType {
+    struct HTTPRoute : HTTPFallibleResponderType {
         let path: String
         let methods: Set<HTTPMethod>
-        let respond: HTTPContext -> Void
+        let routeRespond: HTTPRequest throws -> HTTPResponse
 
         private let parameterKeys: [String]
         private let regularExpression: Regex
 
-        init(path: String, methods: Set<HTTPMethod>, respond: HTTPContext -> Void) {
+        init(path: String, methods: Set<HTTPMethod>, routeRespond: HTTPRequest throws -> HTTPResponse) {
             self.path = path
             self.methods = methods
-            self.respond = respond
+            self.routeRespond = routeRespond
 
             let parameterRegularExpression = try! Regex(pattern: ":([[:alnum:]]+)")
             let pattern = parameterRegularExpression.replace(path, withTemplate: "([[:alnum:]]+)")
@@ -47,15 +47,14 @@ public struct HTTPRouter : HTTPResponderType {
             return regularExpression.matches(request.uri.path!) && methods.contains(request.method)
         }
 
-        func respond(request: HTTPRequest, completion: HTTPResponse -> Void) {
+        func respond(var request: HTTPRequest) throws -> HTTPResponse {
             let values = self.regularExpression.groups(request.uri.path!)
-            var context = HTTPContext(request: request, completion: completion)
 
             for (index, key) in parameterKeys.enumerate() {
-                context.parameters[key] = values[index]
+                request.parameters[key] = values[index]
             }
             
-            respond(context)
+            return try routeRespond(request)
         }
     }
 
@@ -67,28 +66,32 @@ public struct HTTPRouter : HTTPResponderType {
             self.basePath = basePath
         }
 
-        var fallback: HTTPContext -> Void = { context in
-            context.send(HTTPResponse(statusCode: 404, reasonPhrase: "Not Found"))
+        var fallback: HTTPRequest throws -> HTTPResponse = { request in
+            return HTTPResponse(statusCode: 404, reasonPhrase: "Not Found")
         }
 
         public func group(basePath: String, build: (group: HTTPRouterBuilder) -> Void) {
             let groupBuilder = HTTPRouterBuilder(basePath: basePath)
             build(group: groupBuilder)
 
-            for route in groupBuilder.routes {
-                routes.append(HTTPRoute(path: self.basePath + route.path, methods: route.methods, respond: route.respond))
+            routes = groupBuilder.routes.map { route in
+                HTTPRoute(
+                    path: self.basePath + route.path,
+                    methods: route.methods,
+                    routeRespond: route.routeRespond
+                )
             }
         }
 
-        public func fallback(fallback: HTTPContext -> Void) {
+        public func fallback(fallback: HTTPRequest throws -> HTTPResponse) {
             self.fallback = fallback
         }
 
-        public func fallback(responder: HTTPContextResponderType) {
+        public func fallback(responder: HTTPFallibleResponderType) {
             fallback(responder.respond)
         }
 
-        public func any(path: String, respond: HTTPContext -> Void) {
+        public func any(path: String, respond: HTTPRequest throws -> HTTPResponse) {
             let route = HTTPRoute(
                 path: basePath + path,
                 methods: [
@@ -98,83 +101,83 @@ public struct HTTPRouter : HTTPResponderType {
                     .PATCH,
                     .DELETE
                 ],
-                respond: respond
+                routeRespond: respond
             )
 
             routes.append(route)
         }
 
-        public func any(path: String, responder: HTTPContextResponderType) {
+        public func any(path: String, responder: HTTPFallibleResponderType) {
             any(path, respond: responder.respond)
         }
 
-        public func get(path: String, respond: HTTPContext -> Void) {
+        public func get(path: String, respond: HTTPRequest throws -> HTTPResponse) {
             let route = HTTPRoute(
                 path: basePath + path,
                 methods: [.GET],
-                respond: respond
+                routeRespond: respond
             )
 
             routes.append(route)
         }
 
-        public func get(path: String, responder: HTTPContextResponderType) {
+        public func get(path: String, responder: HTTPFallibleResponderType) {
             get(path, respond: responder.respond)
         }
 
-        public func post(path: String, respond: HTTPContext -> Void) {
+        public func post(path: String, respond: HTTPRequest throws -> HTTPResponse) {
             let route = HTTPRoute(
                 path: basePath + path,
                 methods: [.POST],
-                respond: respond
+                routeRespond: respond
             )
 
             routes.append(route)
         }
 
-        public func post(path: String, responder: HTTPContextResponderType) {
+        public func post(path: String, responder: HTTPFallibleResponderType) {
             post(path, respond: responder.respond)
         }
 
-        public func put(path: String, respond: HTTPContext -> Void) {
+        public func put(path: String, respond: HTTPRequest throws -> HTTPResponse) {
             let route = HTTPRoute(
                 path: basePath + path,
                 methods: [.PUT],
-                respond: respond
+                routeRespond: respond
             )
 
             routes.append(route)
         }
 
-        public func put(path: String, responder: HTTPContextResponderType) {
+        public func put(path: String, responder: HTTPFallibleResponderType) {
             put(path, respond: responder.respond)
         }
 
-        public func patch(path: String, respond: HTTPContext -> Void) {
+        public func patch(path: String, respond: HTTPRequest throws -> HTTPResponse) {
             let route = HTTPRoute(
                 path: basePath + path,
                 methods: [.PATCH],
-                respond: respond
+                routeRespond: respond
             )
 
             routes.append(route)
         }
 
-        public func patch(path: String, responder: HTTPContextResponderType) {
+        public func patch(path: String, responder: HTTPFallibleResponderType) {
             patch(path, respond: responder.respond)
         }
 
-        public func delete(path: String, respond: HTTPContext -> Void) {
+        public func delete(path: String, respond: HTTPRequest throws -> HTTPResponse) {
             let route = HTTPRoute(
                 path: basePath + path,
                 methods: [.DELETE],
-                respond: respond
+                routeRespond: respond
             )
             
             routes.append(route)
         }
 
-        public func delete(path: String, responder: HTTPContextResponderType) {
+        public func delete(path: String, responder: HTTPFallibleResponderType) {
             delete(path, respond: responder.respond)
         }
 
@@ -199,7 +202,7 @@ public struct HTTPRouter : HTTPResponderType {
     }
 
     let routes: [HTTPRoute]
-    let fallback: HTTPContext -> Void
+    let fallback: HTTPRequest throws -> HTTPResponse
 
     public init(basePath: String = "", build: (router: HTTPRouterBuilder) -> Void) {
         let routerBuilder = HTTPRouterBuilder(basePath: basePath)
@@ -209,13 +212,12 @@ public struct HTTPRouter : HTTPResponderType {
         routes = routerBuilder.routes
     }
 
-    public func respond(request: HTTPRequest, completion: HTTPResponse -> Void) {
+    public func respond(request: HTTPRequest) throws -> HTTPResponse {
         for route in routes {
             if route.matchesRequest(request) {
-                route.respond(request, completion: completion)
-                return
+                return try route.respond(request)
             }
         }
-        fallback(HTTPContext(request: request, completion: completion))
+        return try fallback(request)
     }
 }

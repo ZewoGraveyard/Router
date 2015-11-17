@@ -23,31 +23,31 @@
 // SOFTWARE.
 
 public protocol HTTPResourceType {
-    func index(context: HTTPContext)
-    func create(context: HTTPContext)
-    func show(context: HTTPContext)
-    func update(context: HTTPContext)
-    func destroy(context: HTTPContext)
+    func index(request: HTTPRequest) throws -> HTTPResponse
+    func create(request: HTTPRequest) throws -> HTTPResponse
+    func show(request: HTTPRequest) throws -> HTTPResponse
+    func update(request: HTTPRequest) throws -> HTTPResponse
+    func destroy(request: HTTPRequest) throws -> HTTPResponse
 }
 
 extension HTTPResourceType {
-    func index(context: HTTPContext) {
-        return context.send(HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed"))
+    func index(request: HTTPRequest) throws -> HTTPResponse {
+        return HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed")
     }
 
-    func create(context: HTTPContext) {
-        return context.send(HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed"))
+    func create(request: HTTPRequest) throws -> HTTPResponse {
+        return HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed")
     }
 
-    func show(context: HTTPContext) {
-        return context.send(HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed"))
+    func show(request: HTTPRequest) throws -> HTTPResponse {
+        return HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed")
     }
 
-    func update(context: HTTPContext) {
-        return context.send(HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed"))
+    func update(request: HTTPRequest) throws -> HTTPResponse {
+        return HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed")
     }
 
-    func destroy(context: HTTPContext) {
-        return context.send(HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed"))
+    func destroy(request: HTTPRequest) throws -> HTTPResponse {
+        return HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed")
     }
 }

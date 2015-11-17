@@ -1,4 +1,4 @@
-// HTTPContext.swift
+// HTTPFallibleResponderType.swift
 //
 // The MIT License (MIT)
 //
@@ -22,22 +22,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-public struct HTTPContext {
-    public let request: HTTPRequest
-    let completion: HTTPResponse -> Void
-
-    public var parameters: [String : String] = [:]
-    public var data: [String : String] = [:]
-
-    public init(request: HTTPRequest, completion: HTTPResponse -> Void) {
-        self.request = request
-        self.completion = completion
-    }
+public protocol HTTPFallibleResponderType {
+    func respond(request: HTTPRequest) throws -> HTTPResponse
 }
-
-extension HTTPContext {
-    public func send(response: HTTPResponse) {
-        completion(response)
-    }
-}
-
