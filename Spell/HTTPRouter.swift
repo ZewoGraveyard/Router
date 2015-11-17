@@ -71,10 +71,10 @@ public struct HTTPRouter : HTTPFallibleResponderType {
         }
 
         public func group(basePath: String, build: (group: HTTPRouterBuilder) -> Void) {
-            let groupBuilder = HTTPRouterBuilder(basePath: basePath)
-            build(group: groupBuilder)
+            let builder = HTTPRouterBuilder(basePath: basePath)
+            build(group: builder)
 
-            routes = groupBuilder.routes.map { route in
+            routes = builder.routes.map { route in
                 HTTPRoute(
                     path: self.basePath + route.path,
                     methods: route.methods,
@@ -88,6 +88,10 @@ public struct HTTPRouter : HTTPFallibleResponderType {
         }
 
         public func fallback(responder: HTTPFallibleResponderType) {
+            fallback(responder.respond)
+        }
+
+        public func fallback(responder: HTTPResponderType) {
             fallback(responder.respond)
         }
 
@@ -111,6 +115,10 @@ public struct HTTPRouter : HTTPFallibleResponderType {
             any(path, respond: responder.respond)
         }
 
+        public func any(path: String, responder: HTTPResponderType) {
+            any(path, respond: responder.respond)
+        }
+
         public func get(path: String, respond: HTTPRequest throws -> HTTPResponse) {
             let route = HTTPRoute(
                 path: basePath + path,
@@ -122,6 +130,10 @@ public struct HTTPRouter : HTTPFallibleResponderType {
         }
 
         public func get(path: String, responder: HTTPFallibleResponderType) {
+            get(path, respond: responder.respond)
+        }
+
+        public func get(path: String, responder: HTTPResponderType) {
             get(path, respond: responder.respond)
         }
 
@@ -139,6 +151,10 @@ public struct HTTPRouter : HTTPFallibleResponderType {
             post(path, respond: responder.respond)
         }
 
+        public func post(path: String, responder: HTTPResponderType) {
+            post(path, respond: responder.respond)
+        }
+
         public func put(path: String, respond: HTTPRequest throws -> HTTPResponse) {
             let route = HTTPRoute(
                 path: basePath + path,
@@ -150,6 +166,10 @@ public struct HTTPRouter : HTTPFallibleResponderType {
         }
 
         public func put(path: String, responder: HTTPFallibleResponderType) {
+            put(path, respond: responder.respond)
+        }
+
+        public func put(path: String, responder: HTTPResponderType) {
             put(path, respond: responder.respond)
         }
 
@@ -167,6 +187,10 @@ public struct HTTPRouter : HTTPFallibleResponderType {
             patch(path, respond: responder.respond)
         }
 
+        public func patch(path: String, responder: HTTPResponderType) {
+            patch(path, respond: responder.respond)
+        }
+
         public func delete(path: String, respond: HTTPRequest throws -> HTTPResponse) {
             let route = HTTPRoute(
                 path: basePath + path,
@@ -181,23 +205,115 @@ public struct HTTPRouter : HTTPFallibleResponderType {
             delete(path, respond: responder.respond)
         }
 
-        // TODO: Use regex to validate the path string.
-        public func resources<T: HTTPResourceType>(path: String, resources: T) {
-            get(basePath + path, respond: resources.index)
-            post(basePath + path, respond: resources.create)
-            get(basePath + path + "/:id", respond: resources.show)
-            put(basePath + path + "/:id", respond: resources.update)
-            patch(basePath + path + "/:id", respond: resources.update)
-            delete(basePath + path + "/:id", respond: resources.destroy)
+        public func delete(path: String, responder: HTTPResponderType) {
+            delete(path, respond: responder.respond)
+        }
+
+        public final class HTTPResourceBuilder {
+            var index: HTTPRequest throws -> HTTPResponse = { request in
+                return HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed")
+            }
+
+            public func index(respond: HTTPRequest throws -> HTTPResponse) {
+                index = respond
+            }
+
+            public func index(responder: HTTPFallibleResponderType) {
+                index = responder.respond
+            }
+
+            public func index(responder: HTTPResponderType) {
+                index = responder.respond
+            }
+
+            var create: HTTPRequest throws -> HTTPResponse = { request in
+                return HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed")
+            }
+
+            public func create(respond: HTTPRequest throws -> HTTPResponse) {
+                create = respond
+            }
+
+            public func create(responder: HTTPFallibleResponderType) {
+                create = responder.respond
+            }
+
+            public func create(responder: HTTPResponderType) {
+                create = responder.respond
+            }
+
+            var show: HTTPRequest throws -> HTTPResponse = { request in
+                return HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed")
+            }
+
+            public func show(respond: HTTPRequest throws -> HTTPResponse) {
+                show = respond
+            }
+
+            public func show(responder: HTTPFallibleResponderType) {
+                show = responder.respond
+            }
+
+            public func show(responder: HTTPResponderType) {
+                show = responder.respond
+            }
+
+            var update: HTTPRequest throws -> HTTPResponse = { request in
+                return HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed")
+            }
+
+            public func update(respond: HTTPRequest throws -> HTTPResponse) {
+                update = respond
+            }
+
+            public func update(responder: HTTPFallibleResponderType) {
+                update = responder.respond
+            }
+
+            public func update(responder: HTTPResponderType) {
+                update = responder.respond
+            }
+
+            var destroy: HTTPRequest throws -> HTTPResponse = { request in
+                return HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed")
+            }
+
+            public func destroy(respond: HTTPRequest throws -> HTTPResponse) {
+                destroy = respond
+            }
+
+            public func destroy(responder: HTTPFallibleResponderType) {
+                destroy = responder.respond
+            }
+
+            public func destroy(responder: HTTPResponderType) {
+                destroy = responder.respond
+            }
         }
 
         // TODO: Use regex to validate the path string.
-        public func resource<T: HTTPResourceType>(path: String, resources: T) {
-            get(basePath + path, respond: resources.index)
-            post(basePath + path, respond: resources.create)
-            put(basePath + path, respond: resources.update)
-            patch(basePath + path, respond: resources.update)
-            delete(basePath + path, respond: resources.destroy)
+        public func resources(path: String, build: (resources: HTTPResourceBuilder) -> Void) {
+            let builder = HTTPResourceBuilder()
+            build(resources: builder)
+
+            get(path, respond: builder.index)
+            post(path, respond: builder.create)
+            get(path + "/:id", respond: builder.show)
+            put(path + "/:id", respond: builder.update)
+            patch(path + "/:id", respond: builder.update)
+            delete(path + "/:id", respond: builder.destroy)
+        }
+
+        // TODO: Use regex to validate the path string.
+        public func resource(path: String, build: (resource: HTTPResourceBuilder) -> Void) {
+            let builder = HTTPResourceBuilder()
+            build(resource: builder)
+
+            get(path, respond: builder.index)
+            post(path, respond: builder.create)
+            put(path, respond: builder.update)
+            patch(path, respond: builder.update)
+            delete(path, respond: builder.destroy)
         }
     }
 
@@ -205,11 +321,11 @@ public struct HTTPRouter : HTTPFallibleResponderType {
     let fallback: HTTPRequest throws -> HTTPResponse
 
     public init(basePath: String = "", build: (router: HTTPRouterBuilder) -> Void) {
-        let routerBuilder = HTTPRouterBuilder(basePath: basePath)
-        build(router: routerBuilder)
+        let builder = HTTPRouterBuilder(basePath: basePath)
+        build(router: builder)
 
-        fallback = routerBuilder.fallback
-        routes = routerBuilder.routes
+        fallback = builder.fallback
+        routes = builder.routes
     }
 
     public func respond(request: HTTPRequest) throws -> HTTPResponse {

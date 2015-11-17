@@ -69,7 +69,7 @@ class SpellTests: XCTestCase {
     }
 
     func testResource() {
-        struct UsersResource : HTTPResourceType {
+        struct UserResources : HTTPResourceType {
             func index(request: HTTPRequest) -> HTTPResponse {
                 return HTTPResponse(statusCode: 200, reasonPhrase: "OK")
             }
@@ -92,7 +92,14 @@ class SpellTests: XCTestCase {
         }
 
         let router = HTTPRouter { router in
-            router.resources("/users", resources: UsersResource())
+            router.resources("/users") { resources in
+                let users = UserResources()
+                resources.index(users.index)
+                resources.create(users.create)
+                resources.show(users.show)
+                resources.update(users.update)
+                resources.destroy(users.destroy)
+            }
         }
 
         let request = HTTPRequest(method: .GET, uri: URI(path: "/users/1"))
