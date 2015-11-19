@@ -9,7 +9,7 @@ Spell
 [![Travis](https://img.shields.io/badge/Build-Passing-4BC51D.svg?style=flat)](https://travis-ci.org/Zewo/Spell)
 [![codecov.io](http://codecov.io/github/Zewo/Spell/coverage.svg?branch=master)](http://codecov.io/github/Zewo/Spell?branch=master)
 
-**Spell** is an HTTPRouter for **Swift 2**.
+**Spell** is an HTTP router for **Swift 2**.
 
 ## Features
 
