@@ -1,0 +1,9 @@
+[submodule "Carthage/Checkouts/Curvature"]
+	path = Carthage/Checkouts/Curvature
+	url = https://github.com/Zewo/Curvature.git
+[submodule "Carthage/Checkouts/Otherside"]
+	path = Carthage/Checkouts/Otherside
+	url = https://github.com/Zewo/Otherside.git
+[submodule "Carthage/Checkouts/Spectrum"]
+	path = Carthage/Checkouts/Spectrum
+	url = https://github.com/Zewo/Spectrum.git

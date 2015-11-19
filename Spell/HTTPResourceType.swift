@@ -22,6 +22,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+import Curvature
+
 public protocol HTTPResourceType {
     func index(request: HTTPRequest) throws -> HTTPResponse
     func create(request: HTTPRequest) throws -> HTTPResponse
