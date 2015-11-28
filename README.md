@@ -26,6 +26,7 @@ HTTPRouter
 ## Usage
 
 ```swift
+import HTTP
 import HTTPRouter
 
 let router = HTTPRouter { router in
