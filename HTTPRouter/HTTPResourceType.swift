@@ -22,14 +22,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import Curvature
+import HTTP
 
 public protocol HTTPResourceType {
     func index(request: HTTPRequest) throws -> HTTPResponse
-    func create(request: HTTPRequest) throws -> HTTPResponse
+    mutating func create(request: HTTPRequest) throws -> HTTPResponse
     func show(request: HTTPRequest) throws -> HTTPResponse
-    func update(request: HTTPRequest) throws -> HTTPResponse
-    func destroy(request: HTTPRequest) throws -> HTTPResponse
+    mutating func update(request: HTTPRequest) throws -> HTTPResponse
+    mutating func destroy(request: HTTPRequest) throws -> HTTPResponse
 }
 
 extension HTTPResourceType {

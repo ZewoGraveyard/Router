@@ -22,9 +22,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import Curvature
-import Otherside
-import Spectrum
+import HTTP
+import POSIXRegex
 
 public struct HTTPRouter : HTTPFallibleResponderType {
     struct HTTPRoute : HTTPFallibleResponderType {

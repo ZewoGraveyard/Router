@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B00510E91BE9952D001B3F26"
-               BuildableName = "Spell.framework"
-               BlueprintName = "Spell iOS"
-               ReferencedContainer = "container:Spell.xcodeproj">
+               BuildableName = "HTTPRouter.framework"
+               BlueprintName = "HTTPRouter iOS"
+               ReferencedContainer = "container:HTTPRouter.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,9 +34,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B00510F21BE9952D001B3F26"
-               BuildableName = "SpellTests.xctest"
-               BlueprintName = "Spell iOS Tests"
-               ReferencedContainer = "container:Spell.xcodeproj">
+               BuildableName = "HTTPRouter.xctest"
+               BlueprintName = "HTTPRouter iOS Tests"
+               ReferencedContainer = "container:HTTPRouter.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -44,9 +44,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B00510E91BE9952D001B3F26"
-            BuildableName = "Spell.framework"
-            BlueprintName = "Spell iOS"
-            ReferencedContainer = "container:Spell.xcodeproj">
+            BuildableName = "HTTPRouter.framework"
+            BlueprintName = "HTTPRouter iOS"
+            ReferencedContainer = "container:HTTPRouter.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -66,9 +66,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B00510E91BE9952D001B3F26"
-            BuildableName = "Spell.framework"
-            BlueprintName = "Spell iOS"
-            ReferencedContainer = "container:Spell.xcodeproj">
+            BuildableName = "HTTPRouter.framework"
+            BlueprintName = "HTTPRouter iOS"
+            ReferencedContainer = "container:HTTPRouter.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -84,9 +84,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B00510E91BE9952D001B3F26"
-            BuildableName = "Spell.framework"
-            BlueprintName = "Spell iOS"
-            ReferencedContainer = "container:Spell.xcodeproj">
+            BuildableName = "HTTPRouter.framework"
+            BlueprintName = "HTTPRouter iOS"
+            ReferencedContainer = "container:HTTPRouter.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

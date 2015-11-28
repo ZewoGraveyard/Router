@@ -1,4 +1,4 @@
-// SpellTests.swift
+// HTTPRouterTests.swift
 //
 // The MIT License (MIT)
 //
@@ -23,9 +23,11 @@
 // SOFTWARE.
 
 import XCTest
-import Spell
+import URI
+import HTTP
+import HTTPRouter
 
-class SpellTests: XCTestCase {
+class HTTPRouterTests: XCTestCase {
     func test() {
         let router = HTTPRouter { router in
             router.get("/users/:id") { request in

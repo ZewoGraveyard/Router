@@ -7,16 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B00510A61BE97B7B001B3F26 /* Spell.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B005109B1BE97B7B001B3F26 /* Spell.framework */; };
-		B00510F41BE9952D001B3F26 /* Spell.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00510EA1BE9952D001B3F26 /* Spell.framework */; };
-		B0A4B2011BF973F100FDA0E1 /* HTTPRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A4B2001BF973F100FDA0E1 /* HTTPRouter.swift */; };
-		B0A4B2021BF973F100FDA0E1 /* HTTPRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A4B2001BF973F100FDA0E1 /* HTTPRouter.swift */; };
-		B0A4B2761BF98ACE00FDA0E1 /* HTTPResourceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A4B2751BF98ACE00FDA0E1 /* HTTPResourceType.swift */; };
-		B0A4B2771BF98ACE00FDA0E1 /* HTTPResourceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A4B2751BF98ACE00FDA0E1 /* HTTPResourceType.swift */; };
-		B0BDF5321BF69E18003BA949 /* SpellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BDF52F1BF69E18003BA949 /* SpellTests.swift */; };
-		B0BDF5331BF69E18003BA949 /* SpellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BDF52F1BF69E18003BA949 /* SpellTests.swift */; };
-		B0BDF5361BF69E67003BA949 /* Spell.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BDF5351BF69E67003BA949 /* Spell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B0BDF5371BF69E67003BA949 /* Spell.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BDF5351BF69E67003BA949 /* Spell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B00510A61BE97B7B001B3F26 /* HTTPRouter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B005109B1BE97B7B001B3F26 /* HTTPRouter.framework */; };
+		B00510F41BE9952D001B3F26 /* HTTPRouter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00510EA1BE9952D001B3F26 /* HTTPRouter.framework */; };
+		B0B0A5121C09EFB7005E92B0 /* HTTPResourceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B0A50B1C09EFAE005E92B0 /* HTTPResourceType.swift */; };
+		B0B0A5131C09EFB7005E92B0 /* HTTPRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B0A50D1C09EFAE005E92B0 /* HTTPRouter.swift */; };
+		B0B0A5141C09EFB8005E92B0 /* HTTPResourceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B0A50B1C09EFAE005E92B0 /* HTTPResourceType.swift */; };
+		B0B0A5151C09EFB8005E92B0 /* HTTPRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B0A50D1C09EFAE005E92B0 /* HTTPRouter.swift */; };
+		B0B0A53D1C09F084005E92B0 /* HTTPRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B0A5111C09EFAE005E92B0 /* HTTPRouterTests.swift */; };
+		B0B0A53E1C09F085005E92B0 /* HTTPRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B0A5111C09EFAE005E92B0 /* HTTPRouterTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,148 +32,105 @@
 			remoteGlobalIDString = B00510E91BE9952D001B3F26;
 			remoteInfo = "Currents iOS";
 		};
-		B08FC4A61BFE00CA005A1705 /* PBXContainerItemProxy */ = {
+		B0B0A51D1C09EFE1005E92B0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = B08FC49F1BFE00CA005A1705 /* Curvature.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = B0D521701BE4F753002063D5;
-			remoteInfo = "Curvature OSX";
-		};
-		B08FC4A81BFE00CA005A1705 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B08FC49F1BFE00CA005A1705 /* Curvature.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3A1C55891BECE19A006EC3F7;
-			remoteInfo = "Curvature iOS";
-		};
-		B08FC4AA1BFE00CA005A1705 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B08FC49F1BFE00CA005A1705 /* Curvature.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = B0D5217A1BE4F753002063D5;
-			remoteInfo = "Curvature OSX Tests";
-		};
-		B08FC4AC1BFE00CA005A1705 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B08FC49F1BFE00CA005A1705 /* Curvature.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3A1C55921BECE19A006EC3F7;
-			remoteInfo = "Curvature iOS Tests";
-		};
-		B08FC4B51BFE00CF005A1705 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B08FC4AE1BFE00CF005A1705 /* Spectrum.xcodeproj */;
+			containerPortal = B0B0A5161C09EFE1005E92B0 /* POSIXRegex.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = B005109B1BE97B7B001B3F26;
-			remoteInfo = "Spectrum OSX";
+			remoteInfo = "POSIXRegex OSX";
 		};
-		B08FC4B71BFE00CF005A1705 /* PBXContainerItemProxy */ = {
+		B0B0A51F1C09EFE1005E92B0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = B08FC4AE1BFE00CF005A1705 /* Spectrum.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = B00510A51BE97B7B001B3F26;
-			remoteInfo = "Spectrum OSX Tests";
-		};
-		B08FC4B91BFE00CF005A1705 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B08FC4AE1BFE00CF005A1705 /* Spectrum.xcodeproj */;
+			containerPortal = B0B0A5161C09EFE1005E92B0 /* POSIXRegex.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = B00510EA1BE9952D001B3F26;
-			remoteInfo = "Spectrum iOS";
+			remoteInfo = "POSIXRegex iOS";
 		};
-		B08FC4BB1BFE00CF005A1705 /* PBXContainerItemProxy */ = {
+		B0B0A5211C09EFE1005E92B0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = B08FC4AE1BFE00CF005A1705 /* Spectrum.xcodeproj */;
+			containerPortal = B0B0A5161C09EFE1005E92B0 /* POSIXRegex.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B00510A51BE97B7B001B3F26;
+			remoteInfo = "POSIXRegex OSX Tests";
+		};
+		B0B0A5231C09EFE1005E92B0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B0B0A5161C09EFE1005E92B0 /* POSIXRegex.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = B00510F31BE9952D001B3F26;
-			remoteInfo = "Spectrum iOS Tests";
+			remoteInfo = "POSIXRegex iOS Tests";
 		};
-		B08FC4C51BFE00D3005A1705 /* PBXContainerItemProxy */ = {
+		B0B0A52D1C09EFE6005E92B0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = B08FC4BD1BFE00D3005A1705 /* Otherside.xcodeproj */;
+			containerPortal = B0B0A5251C09EFE6005E92B0 /* HTTP.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = B0D521701BE4F753002063D5;
-			remoteInfo = "Otherside OSX";
+			remoteInfo = "HTTP OSX";
 		};
-		B08FC4C71BFE00D3005A1705 /* PBXContainerItemProxy */ = {
+		B0B0A52F1C09EFE6005E92B0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = B08FC4BD1BFE00D3005A1705 /* Otherside.xcodeproj */;
+			containerPortal = B0B0A5251C09EFE6005E92B0 /* HTTP.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 3A1C55891BECE19A006EC3F7;
-			remoteInfo = "Otherside iOS";
+			remoteInfo = "HTTP iOS";
 		};
-		B08FC4C91BFE00D3005A1705 /* PBXContainerItemProxy */ = {
+		B0B0A5311C09EFE6005E92B0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = B08FC4BD1BFE00D3005A1705 /* Otherside.xcodeproj */;
+			containerPortal = B0B0A5251C09EFE6005E92B0 /* HTTP.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = B0D5217A1BE4F753002063D5;
-			remoteInfo = "Otherside OSX Tests";
+			remoteGlobalIDString = B019A6F51C09273400EADB02;
+			remoteInfo = "HTTP OSX Tests";
 		};
-		B08FC4CB1BFE00D3005A1705 /* PBXContainerItemProxy */ = {
+		B0B0A5331C09EFE6005E92B0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = B08FC4BD1BFE00D3005A1705 /* Otherside.xcodeproj */;
+			containerPortal = B0B0A5251C09EFE6005E92B0 /* HTTP.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 3A1C55921BECE19A006EC3F7;
-			remoteInfo = "Otherside iOS Tests";
+			remoteGlobalIDString = B019A7041C09274C00EADB02;
+			remoteInfo = "HTTP iOS Tests";
 		};
-		B08FC4CD1BFE010A005A1705 /* PBXContainerItemProxy */ = {
+		B0B0A5351C09F017005E92B0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = B08FC4BD1BFE00D3005A1705 /* Otherside.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = B0D5216F1BE4F753002063D5;
-			remoteInfo = "Otherside OSX";
-		};
-		B08FC4CF1BFE010A005A1705 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B08FC4AE1BFE00CF005A1705 /* Spectrum.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = B005109A1BE97B7B001B3F26;
-			remoteInfo = "Spectrum OSX";
-		};
-		B08FC4D11BFE010A005A1705 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B08FC49F1BFE00CA005A1705 /* Curvature.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = B0D5216F1BE4F753002063D5;
-			remoteInfo = "Curvature OSX";
-		};
-		B08FC4D31BFE0113005A1705 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B08FC4BD1BFE00D3005A1705 /* Otherside.xcodeproj */;
+			containerPortal = B0B0A5251C09EFE6005E92B0 /* HTTP.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 3A1C55881BECE19A006EC3F7;
-			remoteInfo = "Otherside iOS";
+			remoteInfo = "HTTP iOS";
 		};
-		B08FC4D51BFE0113005A1705 /* PBXContainerItemProxy */ = {
+		B0B0A5371C09F017005E92B0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = B08FC4AE1BFE00CF005A1705 /* Spectrum.xcodeproj */;
+			containerPortal = B0B0A5161C09EFE1005E92B0 /* POSIXRegex.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = B00510E91BE9952D001B3F26;
-			remoteInfo = "Spectrum iOS";
+			remoteInfo = "POSIXRegex iOS";
 		};
-		B08FC4D71BFE0113005A1705 /* PBXContainerItemProxy */ = {
+		B0B0A5391C09F01F005E92B0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = B08FC49F1BFE00CA005A1705 /* Curvature.xcodeproj */;
+			containerPortal = B0B0A5251C09EFE6005E92B0 /* HTTP.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 3A1C55881BECE19A006EC3F7;
-			remoteInfo = "Curvature iOS";
+			remoteGlobalIDString = B0D5216F1BE4F753002063D5;
+			remoteInfo = "HTTP OSX";
+		};
+		B0B0A53B1C09F01F005E92B0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B0B0A5161C09EFE1005E92B0 /* POSIXRegex.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = B005109A1BE97B7B001B3F26;
+			remoteInfo = "POSIXRegex OSX";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B005109B1BE97B7B001B3F26 /* Spell.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Spell.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B00510A51BE97B7B001B3F26 /* SpellTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpellTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B00510EA1BE9952D001B3F26 /* Spell.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Spell.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B005109B1BE97B7B001B3F26 /* HTTPRouter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HTTPRouter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B00510A51BE97B7B001B3F26 /* HTTPRouterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HTTPRouterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B00510EA1BE9952D001B3F26 /* HTTPRouter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HTTPRouter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B00510F31BE9952D001B3F26 /* SpellTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpellTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B08FC49F1BFE00CA005A1705 /* Curvature.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Curvature.xcodeproj; path = Carthage/Checkouts/Curvature/Curvature.xcodeproj; sourceTree = "<group>"; };
-		B08FC4AE1BFE00CF005A1705 /* Spectrum.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Spectrum.xcodeproj; path = Carthage/Checkouts/Spectrum/Spectrum.xcodeproj; sourceTree = "<group>"; };
-		B08FC4BD1BFE00D3005A1705 /* Otherside.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Otherside.xcodeproj; path = Carthage/Checkouts/Otherside/Otherside.xcodeproj; sourceTree = "<group>"; };
-		B0A4B2001BF973F100FDA0E1 /* HTTPRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRouter.swift; sourceTree = "<group>"; };
-		B0A4B2751BF98ACE00FDA0E1 /* HTTPResourceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPResourceType.swift; sourceTree = "<group>"; };
-		B0BDF52E1BF69E18003BA949 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B0BDF52F1BF69E18003BA949 /* SpellTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpellTests.swift; sourceTree = "<group>"; };
-		B0BDF5351BF69E67003BA949 /* Spell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spell.h; sourceTree = "<group>"; };
-		B0BDF53B1BF69F31003BA949 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0B0A50B1C09EFAE005E92B0 /* HTTPResourceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPResourceType.swift; sourceTree = "<group>"; };
+		B0B0A50C1C09EFAE005E92B0 /* HTTPRouter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTTPRouter.h; sourceTree = "<group>"; };
+		B0B0A50D1C09EFAE005E92B0 /* HTTPRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRouter.swift; sourceTree = "<group>"; };
+		B0B0A50E1C09EFAE005E92B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0B0A5101C09EFAE005E92B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0B0A5111C09EFAE005E92B0 /* HTTPRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRouterTests.swift; sourceTree = "<group>"; };
+		B0B0A5161C09EFE1005E92B0 /* POSIXRegex.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = POSIXRegex.xcodeproj; path = POSIXRegex/POSIXRegex.xcodeproj; sourceTree = "<group>"; };
+		B0B0A5251C09EFE6005E92B0 /* HTTP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HTTP.xcodeproj; path = HTTP/HTTP.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,7 +145,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B00510A61BE97B7B001B3F26 /* Spell.framework in Frameworks */,
+				B00510A61BE97B7B001B3F26 /* HTTPRouter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,7 +160,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B00510F41BE9952D001B3F26 /* Spell.framework in Frameworks */,
+				B00510F41BE9952D001B3F26 /* HTTPRouter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,11 +170,10 @@
 		B00510911BE97B7B001B3F26 = {
 			isa = PBXGroup;
 			children = (
-				B08FC4BD1BFE00D3005A1705 /* Otherside.xcodeproj */,
-				B08FC4AE1BFE00CF005A1705 /* Spectrum.xcodeproj */,
-				B08FC49F1BFE00CA005A1705 /* Curvature.xcodeproj */,
-				B0BDF5341BF69E55003BA949 /* Spell */,
-				B0BDF52D1BF69E18003BA949 /* Spell Tests */,
+				B0B0A5251C09EFE6005E92B0 /* HTTP.xcodeproj */,
+				B0B0A5161C09EFE1005E92B0 /* POSIXRegex.xcodeproj */,
+				B0B0A50A1C09EFAE005E92B0 /* HTTPRouter */,
+				B0B0A50F1C09EFAE005E92B0 /* HTTPRouter Tests */,
 				B005109C1BE97B7B001B3F26 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -227,65 +181,54 @@
 		B005109C1BE97B7B001B3F26 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B005109B1BE97B7B001B3F26 /* Spell.framework */,
-				B00510A51BE97B7B001B3F26 /* SpellTests.xctest */,
-				B00510EA1BE9952D001B3F26 /* Spell.framework */,
+				B005109B1BE97B7B001B3F26 /* HTTPRouter.framework */,
+				B00510A51BE97B7B001B3F26 /* HTTPRouterTests.xctest */,
+				B00510EA1BE9952D001B3F26 /* HTTPRouter.framework */,
 				B00510F31BE9952D001B3F26 /* SpellTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B08FC4A01BFE00CA005A1705 /* Products */ = {
+		B0B0A50A1C09EFAE005E92B0 /* HTTPRouter */ = {
 			isa = PBXGroup;
 			children = (
-				B08FC4A71BFE00CA005A1705 /* Curvature.framework */,
-				B08FC4A91BFE00CA005A1705 /* Curvature.framework */,
-				B08FC4AB1BFE00CA005A1705 /* CurvatureTests.xctest */,
-				B08FC4AD1BFE00CA005A1705 /* Curvature.xctest */,
+				B0B0A50B1C09EFAE005E92B0 /* HTTPResourceType.swift */,
+				B0B0A50C1C09EFAE005E92B0 /* HTTPRouter.h */,
+				B0B0A50D1C09EFAE005E92B0 /* HTTPRouter.swift */,
+				B0B0A50E1C09EFAE005E92B0 /* Info.plist */,
+			);
+			path = HTTPRouter;
+			sourceTree = "<group>";
+		};
+		B0B0A50F1C09EFAE005E92B0 /* HTTPRouter Tests */ = {
+			isa = PBXGroup;
+			children = (
+				B0B0A5101C09EFAE005E92B0 /* Info.plist */,
+				B0B0A5111C09EFAE005E92B0 /* HTTPRouterTests.swift */,
+			);
+			path = "HTTPRouter Tests";
+			sourceTree = "<group>";
+		};
+		B0B0A5171C09EFE1005E92B0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B0B0A51E1C09EFE1005E92B0 /* POSIXRegex.framework */,
+				B0B0A5201C09EFE1005E92B0 /* POSIXRegex.framework */,
+				B0B0A5221C09EFE1005E92B0 /* POSIXRegex.xctest */,
+				B0B0A5241C09EFE1005E92B0 /* POSIXRegex.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B08FC4AF1BFE00CF005A1705 /* Products */ = {
+		B0B0A5261C09EFE6005E92B0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B08FC4B61BFE00CF005A1705 /* Spectrum.framework */,
-				B08FC4B81BFE00CF005A1705 /* SpectrumTests.xctest */,
-				B08FC4BA1BFE00CF005A1705 /* Spectrum.framework */,
-				B08FC4BC1BFE00CF005A1705 /* SpectrumTests.xctest */,
+				B0B0A52E1C09EFE6005E92B0 /* HTTP.framework */,
+				B0B0A5301C09EFE6005E92B0 /* HTTP.framework */,
+				B0B0A5321C09EFE6005E92B0 /* HTTPTests.xctest */,
+				B0B0A5341C09EFE6005E92B0 /* HTTPTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		B08FC4BE1BFE00D3005A1705 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				B08FC4C61BFE00D3005A1705 /* Otherside.framework */,
-				B08FC4C81BFE00D3005A1705 /* Otherside.framework */,
-				B08FC4CA1BFE00D3005A1705 /* Otherside.xctest */,
-				B08FC4CC1BFE00D3005A1705 /* Otherside.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		B0BDF52D1BF69E18003BA949 /* Spell Tests */ = {
-			isa = PBXGroup;
-			children = (
-				B0BDF52E1BF69E18003BA949 /* Info.plist */,
-				B0BDF52F1BF69E18003BA949 /* SpellTests.swift */,
-			);
-			path = "Spell Tests";
-			sourceTree = "<group>";
-		};
-		B0BDF5341BF69E55003BA949 /* Spell */ = {
-			isa = PBXGroup;
-			children = (
-				B0BDF53B1BF69F31003BA949 /* Info.plist */,
-				B0BDF5351BF69E67003BA949 /* Spell.h */,
-				B0A4B2001BF973F100FDA0E1 /* HTTPRouter.swift */,
-				B0A4B2751BF98ACE00FDA0E1 /* HTTPResourceType.swift */,
-			);
-			path = Spell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -295,7 +238,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0BDF5361BF69E67003BA949 /* Spell.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,16 +245,15 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0BDF5371BF69E67003BA949 /* Spell.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		B005109A1BE97B7B001B3F26 /* Spell OSX */ = {
+		B005109A1BE97B7B001B3F26 /* HTTPRouter OSX */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B00510AF1BE97B7B001B3F26 /* Build configuration list for PBXNativeTarget "Spell OSX" */;
+			buildConfigurationList = B00510AF1BE97B7B001B3F26 /* Build configuration list for PBXNativeTarget "HTTPRouter OSX" */;
 			buildPhases = (
 				B00510961BE97B7B001B3F26 /* Sources */,
 				B00510971BE97B7B001B3F26 /* Frameworks */,
@@ -322,18 +263,17 @@
 			buildRules = (
 			);
 			dependencies = (
-				B08FC4CE1BFE010A005A1705 /* PBXTargetDependency */,
-				B08FC4D01BFE010A005A1705 /* PBXTargetDependency */,
-				B08FC4D21BFE010A005A1705 /* PBXTargetDependency */,
+				B0B0A53A1C09F01F005E92B0 /* PBXTargetDependency */,
+				B0B0A53C1C09F01F005E92B0 /* PBXTargetDependency */,
 			);
-			name = "Spell OSX";
+			name = "HTTPRouter OSX";
 			productName = Currents;
-			productReference = B005109B1BE97B7B001B3F26 /* Spell.framework */;
+			productReference = B005109B1BE97B7B001B3F26 /* HTTPRouter.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		B00510A41BE97B7B001B3F26 /* Spell OSX Tests */ = {
+		B00510A41BE97B7B001B3F26 /* HTTPRouter OSX Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B00510B21BE97B7B001B3F26 /* Build configuration list for PBXNativeTarget "Spell OSX Tests" */;
+			buildConfigurationList = B00510B21BE97B7B001B3F26 /* Build configuration list for PBXNativeTarget "HTTPRouter OSX Tests" */;
 			buildPhases = (
 				B00510A11BE97B7B001B3F26 /* Sources */,
 				B00510A21BE97B7B001B3F26 /* Frameworks */,
@@ -344,14 +284,14 @@
 			dependencies = (
 				B00510A81BE97B7B001B3F26 /* PBXTargetDependency */,
 			);
-			name = "Spell OSX Tests";
+			name = "HTTPRouter OSX Tests";
 			productName = CurrentsTests;
-			productReference = B00510A51BE97B7B001B3F26 /* SpellTests.xctest */;
+			productReference = B00510A51BE97B7B001B3F26 /* HTTPRouterTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		B00510E91BE9952D001B3F26 /* Spell iOS */ = {
+		B00510E91BE9952D001B3F26 /* HTTPRouter iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B00510FB1BE9952D001B3F26 /* Build configuration list for PBXNativeTarget "Spell iOS" */;
+			buildConfigurationList = B00510FB1BE9952D001B3F26 /* Build configuration list for PBXNativeTarget "HTTPRouter iOS" */;
 			buildPhases = (
 				B00510E51BE9952D001B3F26 /* Sources */,
 				B00510E61BE9952D001B3F26 /* Frameworks */,
@@ -361,18 +301,17 @@
 			buildRules = (
 			);
 			dependencies = (
-				B08FC4D41BFE0113005A1705 /* PBXTargetDependency */,
-				B08FC4D61BFE0113005A1705 /* PBXTargetDependency */,
-				B08FC4D81BFE0113005A1705 /* PBXTargetDependency */,
+				B0B0A5361C09F017005E92B0 /* PBXTargetDependency */,
+				B0B0A5381C09F017005E92B0 /* PBXTargetDependency */,
 			);
-			name = "Spell iOS";
+			name = "HTTPRouter iOS";
 			productName = "Currents iOS";
-			productReference = B00510EA1BE9952D001B3F26 /* Spell.framework */;
+			productReference = B00510EA1BE9952D001B3F26 /* HTTPRouter.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		B00510F21BE9952D001B3F26 /* Spell iOS Tests */ = {
+		B00510F21BE9952D001B3F26 /* HTTPRouter iOS Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B00510FE1BE9952D001B3F26 /* Build configuration list for PBXNativeTarget "Spell iOS Tests" */;
+			buildConfigurationList = B00510FE1BE9952D001B3F26 /* Build configuration list for PBXNativeTarget "HTTPRouter iOS Tests" */;
 			buildPhases = (
 				B00510EF1BE9952D001B3F26 /* Sources */,
 				B00510F01BE9952D001B3F26 /* Frameworks */,
@@ -383,7 +322,7 @@
 			dependencies = (
 				B00510F61BE9952D001B3F26 /* PBXTargetDependency */,
 			);
-			name = "Spell iOS Tests";
+			name = "HTTPRouter iOS Tests";
 			productName = "Currents iOSTests";
 			productReference = B00510F31BE9952D001B3F26 /* SpellTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -412,7 +351,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B00510951BE97B7B001B3F26 /* Build configuration list for PBXProject "Spell" */;
+			buildConfigurationList = B00510951BE97B7B001B3F26 /* Build configuration list for PBXProject "HTTPRouter" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -424,111 +363,81 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = B08FC4A01BFE00CA005A1705 /* Products */;
-					ProjectRef = B08FC49F1BFE00CA005A1705 /* Curvature.xcodeproj */;
+					ProductGroup = B0B0A5261C09EFE6005E92B0 /* Products */;
+					ProjectRef = B0B0A5251C09EFE6005E92B0 /* HTTP.xcodeproj */;
 				},
 				{
-					ProductGroup = B08FC4BE1BFE00D3005A1705 /* Products */;
-					ProjectRef = B08FC4BD1BFE00D3005A1705 /* Otherside.xcodeproj */;
-				},
-				{
-					ProductGroup = B08FC4AF1BFE00CF005A1705 /* Products */;
-					ProjectRef = B08FC4AE1BFE00CF005A1705 /* Spectrum.xcodeproj */;
+					ProductGroup = B0B0A5171C09EFE1005E92B0 /* Products */;
+					ProjectRef = B0B0A5161C09EFE1005E92B0 /* POSIXRegex.xcodeproj */;
 				},
 			);
 			projectRoot = "";
 			targets = (
-				B005109A1BE97B7B001B3F26 /* Spell OSX */,
-				B00510E91BE9952D001B3F26 /* Spell iOS */,
-				B00510A41BE97B7B001B3F26 /* Spell OSX Tests */,
-				B00510F21BE9952D001B3F26 /* Spell iOS Tests */,
+				B005109A1BE97B7B001B3F26 /* HTTPRouter OSX */,
+				B00510E91BE9952D001B3F26 /* HTTPRouter iOS */,
+				B00510A41BE97B7B001B3F26 /* HTTPRouter OSX Tests */,
+				B00510F21BE9952D001B3F26 /* HTTPRouter iOS Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		B08FC4A71BFE00CA005A1705 /* Curvature.framework */ = {
+		B0B0A51E1C09EFE1005E92B0 /* POSIXRegex.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = Curvature.framework;
-			remoteRef = B08FC4A61BFE00CA005A1705 /* PBXContainerItemProxy */;
+			path = POSIXRegex.framework;
+			remoteRef = B0B0A51D1C09EFE1005E92B0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		B08FC4A91BFE00CA005A1705 /* Curvature.framework */ = {
+		B0B0A5201C09EFE1005E92B0 /* POSIXRegex.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = Curvature.framework;
-			remoteRef = B08FC4A81BFE00CA005A1705 /* PBXContainerItemProxy */;
+			path = POSIXRegex.framework;
+			remoteRef = B0B0A51F1C09EFE1005E92B0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		B08FC4AB1BFE00CA005A1705 /* CurvatureTests.xctest */ = {
+		B0B0A5221C09EFE1005E92B0 /* POSIXRegex.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = CurvatureTests.xctest;
-			remoteRef = B08FC4AA1BFE00CA005A1705 /* PBXContainerItemProxy */;
+			name = POSIXRegex.xctest;
+			path = POSIXRegexTests.xctest;
+			remoteRef = B0B0A5211C09EFE1005E92B0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		B08FC4AD1BFE00CA005A1705 /* Curvature.xctest */ = {
+		B0B0A5241C09EFE1005E92B0 /* POSIXRegex.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = Curvature.xctest;
-			remoteRef = B08FC4AC1BFE00CA005A1705 /* PBXContainerItemProxy */;
+			name = POSIXRegex.xctest;
+			path = POSIXRegexTests.xctest;
+			remoteRef = B0B0A5231C09EFE1005E92B0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		B08FC4B61BFE00CF005A1705 /* Spectrum.framework */ = {
+		B0B0A52E1C09EFE6005E92B0 /* HTTP.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = Spectrum.framework;
-			remoteRef = B08FC4B51BFE00CF005A1705 /* PBXContainerItemProxy */;
+			path = HTTP.framework;
+			remoteRef = B0B0A52D1C09EFE6005E92B0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		B08FC4B81BFE00CF005A1705 /* SpectrumTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = SpectrumTests.xctest;
-			remoteRef = B08FC4B71BFE00CF005A1705 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B08FC4BA1BFE00CF005A1705 /* Spectrum.framework */ = {
+		B0B0A5301C09EFE6005E92B0 /* HTTP.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = Spectrum.framework;
-			remoteRef = B08FC4B91BFE00CF005A1705 /* PBXContainerItemProxy */;
+			path = HTTP.framework;
+			remoteRef = B0B0A52F1C09EFE6005E92B0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		B08FC4BC1BFE00CF005A1705 /* SpectrumTests.xctest */ = {
+		B0B0A5321C09EFE6005E92B0 /* HTTPTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = SpectrumTests.xctest;
-			remoteRef = B08FC4BB1BFE00CF005A1705 /* PBXContainerItemProxy */;
+			path = HTTPTests.xctest;
+			remoteRef = B0B0A5311C09EFE6005E92B0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		B08FC4C61BFE00D3005A1705 /* Otherside.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Otherside.framework;
-			remoteRef = B08FC4C51BFE00D3005A1705 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B08FC4C81BFE00D3005A1705 /* Otherside.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Otherside.framework;
-			remoteRef = B08FC4C71BFE00D3005A1705 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B08FC4CA1BFE00D3005A1705 /* Otherside.xctest */ = {
+		B0B0A5341C09EFE6005E92B0 /* HTTPTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = Otherside.xctest;
-			remoteRef = B08FC4C91BFE00D3005A1705 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B08FC4CC1BFE00D3005A1705 /* Otherside.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = Otherside.xctest;
-			remoteRef = B08FC4CB1BFE00D3005A1705 /* PBXContainerItemProxy */;
+			path = HTTPTests.xctest;
+			remoteRef = B0B0A5331C09EFE6005E92B0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -569,8 +478,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0A4B2761BF98ACE00FDA0E1 /* HTTPResourceType.swift in Sources */,
-				B0A4B2011BF973F100FDA0E1 /* HTTPRouter.swift in Sources */,
+				B0B0A5131C09EFB7005E92B0 /* HTTPRouter.swift in Sources */,
+				B0B0A5121C09EFB7005E92B0 /* HTTPResourceType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -578,7 +487,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0BDF5321BF69E18003BA949 /* SpellTests.swift in Sources */,
+				B0B0A53D1C09F084005E92B0 /* HTTPRouterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -586,8 +495,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0A4B2771BF98ACE00FDA0E1 /* HTTPResourceType.swift in Sources */,
-				B0A4B2021BF973F100FDA0E1 /* HTTPRouter.swift in Sources */,
+				B0B0A5151C09EFB8005E92B0 /* HTTPRouter.swift in Sources */,
+				B0B0A5141C09EFB8005E92B0 /* HTTPResourceType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,7 +504,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0BDF5331BF69E18003BA949 /* SpellTests.swift in Sources */,
+				B0B0A53E1C09F085005E92B0 /* HTTPRouterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -604,43 +513,33 @@
 /* Begin PBXTargetDependency section */
 		B00510A81BE97B7B001B3F26 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B005109A1BE97B7B001B3F26 /* Spell OSX */;
+			target = B005109A1BE97B7B001B3F26 /* HTTPRouter OSX */;
 			targetProxy = B00510A71BE97B7B001B3F26 /* PBXContainerItemProxy */;
 		};
 		B00510F61BE9952D001B3F26 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B00510E91BE9952D001B3F26 /* Spell iOS */;
+			target = B00510E91BE9952D001B3F26 /* HTTPRouter iOS */;
 			targetProxy = B00510F51BE9952D001B3F26 /* PBXContainerItemProxy */;
 		};
-		B08FC4CE1BFE010A005A1705 /* PBXTargetDependency */ = {
+		B0B0A5361C09F017005E92B0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "Otherside OSX";
-			targetProxy = B08FC4CD1BFE010A005A1705 /* PBXContainerItemProxy */;
+			name = "HTTP iOS";
+			targetProxy = B0B0A5351C09F017005E92B0 /* PBXContainerItemProxy */;
 		};
-		B08FC4D01BFE010A005A1705 /* PBXTargetDependency */ = {
+		B0B0A5381C09F017005E92B0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "Spectrum OSX";
-			targetProxy = B08FC4CF1BFE010A005A1705 /* PBXContainerItemProxy */;
+			name = "POSIXRegex iOS";
+			targetProxy = B0B0A5371C09F017005E92B0 /* PBXContainerItemProxy */;
 		};
-		B08FC4D21BFE010A005A1705 /* PBXTargetDependency */ = {
+		B0B0A53A1C09F01F005E92B0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "Curvature OSX";
-			targetProxy = B08FC4D11BFE010A005A1705 /* PBXContainerItemProxy */;
+			name = "HTTP OSX";
+			targetProxy = B0B0A5391C09F01F005E92B0 /* PBXContainerItemProxy */;
 		};
-		B08FC4D41BFE0113005A1705 /* PBXTargetDependency */ = {
+		B0B0A53C1C09F01F005E92B0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "Otherside iOS";
-			targetProxy = B08FC4D31BFE0113005A1705 /* PBXContainerItemProxy */;
-		};
-		B08FC4D61BFE0113005A1705 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Spectrum iOS";
-			targetProxy = B08FC4D51BFE0113005A1705 /* PBXContainerItemProxy */;
-		};
-		B08FC4D81BFE0113005A1705 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Curvature iOS";
-			targetProxy = B08FC4D71BFE0113005A1705 /* PBXContainerItemProxy */;
+			name = "POSIXRegex OSX";
+			targetProxy = B0B0A53B1C09F01F005E92B0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -742,13 +641,13 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = Spell/Info.plist;
+				INFOPLIST_FILE = HTTPRouter/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				PRODUCT_BUNDLE_IDENTIFIER = com.zewo.SpellOSX;
-				PRODUCT_MODULE_NAME = Spell;
-				PRODUCT_NAME = Spell;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zewo.HTTPRouter;
+				PRODUCT_MODULE_NAME = HTTPRouter;
+				PRODUCT_NAME = HTTPRouter;
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/Dependencies";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -766,13 +665,13 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = Spell/Info.plist;
+				INFOPLIST_FILE = HTTPRouter/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				PRODUCT_BUNDLE_IDENTIFIER = com.zewo.SpellOSX;
-				PRODUCT_MODULE_NAME = Spell;
-				PRODUCT_NAME = Spell;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zewo.HTTPRouter;
+				PRODUCT_MODULE_NAME = HTTPRouter;
+				PRODUCT_NAME = HTTPRouter;
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/Dependencies";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -784,10 +683,10 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = "Spell Tests/Info.plist";
+				INFOPLIST_FILE = "HTTPRouter Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.zewo.SpellOSXTests;
-				PRODUCT_NAME = SpellTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zewo.HTTPRouterTests;
+				PRODUCT_NAME = HTTPRouterTests;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -797,10 +696,10 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = "Spell Tests/Info.plist";
+				INFOPLIST_FILE = "HTTPRouter Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.zewo.SpellOSXTests;
-				PRODUCT_NAME = SpellTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zewo.HTTPRouterTests;
+				PRODUCT_NAME = HTTPRouterTests;
 			};
 			name = Release;
 		};
@@ -814,13 +713,13 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Spell/Info.plist;
+				INFOPLIST_FILE = HTTPRouter/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.zewo.SpelliOS;
-				PRODUCT_MODULE_NAME = Spell;
-				PRODUCT_NAME = Spell;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zewo.HTTPRouter;
+				PRODUCT_MODULE_NAME = HTTPRouter;
+				PRODUCT_NAME = HTTPRouter;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/Dependencies";
@@ -839,13 +738,13 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Spell/Info.plist;
+				INFOPLIST_FILE = HTTPRouter/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.zewo.SpelliOS;
-				PRODUCT_MODULE_NAME = Spell;
-				PRODUCT_NAME = Spell;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zewo.HTTPRouter;
+				PRODUCT_MODULE_NAME = HTTPRouter;
+				PRODUCT_NAME = HTTPRouter;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/Dependencies";
@@ -860,11 +759,11 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = "Spell Tests/Info.plist";
+				INFOPLIST_FILE = "HTTPRouter Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.zewo.SpelliOSTests;
-				PRODUCT_NAME = SpellTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zewo.HTTPRouterTests;
+				PRODUCT_NAME = HTTPRouterTests;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -875,11 +774,11 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = "Spell Tests/Info.plist";
+				INFOPLIST_FILE = "HTTPRouter Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.zewo.SpelliOSTests;
-				PRODUCT_NAME = SpellTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zewo.HTTPRouterTests;
+				PRODUCT_NAME = HTTPRouterTests;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -888,7 +787,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B00510951BE97B7B001B3F26 /* Build configuration list for PBXProject "Spell" */ = {
+		B00510951BE97B7B001B3F26 /* Build configuration list for PBXProject "HTTPRouter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B00510AD1BE97B7B001B3F26 /* Debug */,
@@ -897,7 +796,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B00510AF1BE97B7B001B3F26 /* Build configuration list for PBXNativeTarget "Spell OSX" */ = {
+		B00510AF1BE97B7B001B3F26 /* Build configuration list for PBXNativeTarget "HTTPRouter OSX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B00510B01BE97B7B001B3F26 /* Debug */,
@@ -906,7 +805,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B00510B21BE97B7B001B3F26 /* Build configuration list for PBXNativeTarget "Spell OSX Tests" */ = {
+		B00510B21BE97B7B001B3F26 /* Build configuration list for PBXNativeTarget "HTTPRouter OSX Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B00510B31BE97B7B001B3F26 /* Debug */,
@@ -915,7 +814,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B00510FB1BE9952D001B3F26 /* Build configuration list for PBXNativeTarget "Spell iOS" */ = {
+		B00510FB1BE9952D001B3F26 /* Build configuration list for PBXNativeTarget "HTTPRouter iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B00510FC1BE9952D001B3F26 /* Debug */,
@@ -924,7 +823,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B00510FE1BE9952D001B3F26 /* Build configuration list for PBXNativeTarget "Spell iOS Tests" */ = {
+		B00510FE1BE9952D001B3F26 /* Build configuration list for PBXNativeTarget "HTTPRouter iOS Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B00510FF1BE9952D001B3F26 /* Debug */,
