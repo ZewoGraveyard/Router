@@ -25,8 +25,8 @@
 import HTTP
 import POSIXRegex
 
-public struct HTTPRouter : HTTPFallibleResponderType {
-    struct HTTPRoute : HTTPFallibleResponderType {
+public struct HTTPRouter: HTTPResponderType {
+    struct HTTPRoute: HTTPResponderType {
         let path: String
         let methods: Set<HTTPMethod>
         let routeRespond: HTTPRequest throws -> HTTPResponse
@@ -90,10 +90,6 @@ public struct HTTPRouter : HTTPFallibleResponderType {
             self.fallback = fallback
         }
 
-        public func fallback(responder: HTTPFallibleResponderType) {
-            fallback(responder.respond)
-        }
-
         public func fallback(responder: HTTPResponderType) {
             fallback(responder.respond)
         }
@@ -114,10 +110,6 @@ public struct HTTPRouter : HTTPFallibleResponderType {
             routes.append(route)
         }
 
-        public func any(path: String, responder: HTTPFallibleResponderType) {
-            any(path, respond: responder.respond)
-        }
-
         public func any(path: String, responder: HTTPResponderType) {
             any(path, respond: responder.respond)
         }
@@ -130,10 +122,6 @@ public struct HTTPRouter : HTTPFallibleResponderType {
             )
 
             routes.append(route)
-        }
-
-        public func get(path: String, responder: HTTPFallibleResponderType) {
-            get(path, respond: responder.respond)
         }
 
         public func get(path: String, responder: HTTPResponderType) {
@@ -150,10 +138,6 @@ public struct HTTPRouter : HTTPFallibleResponderType {
             routes.append(route)
         }
 
-        public func post(path: String, responder: HTTPFallibleResponderType) {
-            post(path, respond: responder.respond)
-        }
-
         public func post(path: String, responder: HTTPResponderType) {
             post(path, respond: responder.respond)
         }
@@ -166,10 +150,6 @@ public struct HTTPRouter : HTTPFallibleResponderType {
             )
 
             routes.append(route)
-        }
-
-        public func put(path: String, responder: HTTPFallibleResponderType) {
-            put(path, respond: responder.respond)
         }
 
         public func put(path: String, responder: HTTPResponderType) {
@@ -186,10 +166,6 @@ public struct HTTPRouter : HTTPFallibleResponderType {
             routes.append(route)
         }
 
-        public func patch(path: String, responder: HTTPFallibleResponderType) {
-            patch(path, respond: responder.respond)
-        }
-
         public func patch(path: String, responder: HTTPResponderType) {
             patch(path, respond: responder.respond)
         }
@@ -204,10 +180,6 @@ public struct HTTPRouter : HTTPFallibleResponderType {
             routes.append(route)
         }
 
-        public func delete(path: String, responder: HTTPFallibleResponderType) {
-            delete(path, respond: responder.respond)
-        }
-
         public func delete(path: String, responder: HTTPResponderType) {
             delete(path, respond: responder.respond)
         }
@@ -220,11 +192,7 @@ public struct HTTPRouter : HTTPFallibleResponderType {
             public func index(respond: HTTPRequest throws -> HTTPResponse) {
                 index = respond
             }
-
-            public func index(responder: HTTPFallibleResponderType) {
-                index = responder.respond
-            }
-
+            
             public func index(responder: HTTPResponderType) {
                 index = responder.respond
             }
@@ -236,11 +204,7 @@ public struct HTTPRouter : HTTPFallibleResponderType {
             public func create(respond: HTTPRequest throws -> HTTPResponse) {
                 create = respond
             }
-
-            public func create(responder: HTTPFallibleResponderType) {
-                create = responder.respond
-            }
-
+            
             public func create(responder: HTTPResponderType) {
                 create = responder.respond
             }
@@ -249,48 +213,48 @@ public struct HTTPRouter : HTTPFallibleResponderType {
                 return HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed")
             }
 
-            public func show(respond: HTTPRequest throws -> HTTPResponse) {
-                show = respond
+            public func show(respond: (HTTPRequest, String) throws -> HTTPResponse) {
+                show = { request in
+                    return try respond(request, request.parameters["id"]!)
+                }
             }
-
-            public func show(responder: HTTPFallibleResponderType) {
-                show = responder.respond
-            }
-
-            public func show(responder: HTTPResponderType) {
-                show = responder.respond
+            
+            public func show(responder: HTTPIdentifiableResponderType) {
+                show = { request in
+                    return try responder.respond(request, id: request.parameters["id"]!)
+                }
             }
 
             var update: HTTPRequest throws -> HTTPResponse = { request in
                 return HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed")
             }
 
-            public func update(respond: HTTPRequest throws -> HTTPResponse) {
-                update = respond
+            public func update(respond: (HTTPRequest, String) throws -> HTTPResponse) {
+                update = { request in
+                    return try respond(request, request.parameters["id"]!)
+                }
             }
-
-            public func update(responder: HTTPFallibleResponderType) {
-                update = responder.respond
-            }
-
-            public func update(responder: HTTPResponderType) {
-                update = responder.respond
+            
+            public func update(responder: HTTPIdentifiableResponderType) {
+                update = { request in
+                    return try responder.respond(request, id: request.parameters["id"]!)
+                }
             }
 
             var destroy: HTTPRequest throws -> HTTPResponse = { request in
                 return HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed")
             }
 
-            public func destroy(respond: HTTPRequest throws -> HTTPResponse) {
-                destroy = respond
+            public func destroy(respond: (HTTPRequest, String) throws -> HTTPResponse) {
+                destroy = { request in
+                    return try respond(request, request.parameters["id"]!)
+                }
             }
-
-            public func destroy(responder: HTTPFallibleResponderType) {
-                destroy = responder.respond
-            }
-
-            public func destroy(responder: HTTPResponderType) {
-                destroy = responder.respond
+            
+            public func destroy(responder: HTTPIdentifiableResponderType) {
+                destroy = { request in
+                    return try responder.respond(request, id: request.parameters["id"]!)
+                }
             }
         }
 

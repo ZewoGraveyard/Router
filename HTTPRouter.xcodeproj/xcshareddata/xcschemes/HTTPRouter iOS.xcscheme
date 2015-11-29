@@ -34,7 +34,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B00510F21BE9952D001B3F26"
-               BuildableName = "HTTPRouter.xctest"
+               BuildableName = "HTTPRouterTests.xctest"
                BlueprintName = "HTTPRouter iOS Tests"
                ReferencedContainer = "container:HTTPRouter.xcodeproj">
             </BuildableReference>

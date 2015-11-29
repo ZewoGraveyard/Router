@@ -27,9 +27,9 @@ import HTTP
 public protocol HTTPResourceType {
     func index(request: HTTPRequest) throws -> HTTPResponse
     mutating func create(request: HTTPRequest) throws -> HTTPResponse
-    func show(request: HTTPRequest) throws -> HTTPResponse
-    mutating func update(request: HTTPRequest) throws -> HTTPResponse
-    mutating func destroy(request: HTTPRequest) throws -> HTTPResponse
+    func show(request: HTTPRequest, id: String) throws -> HTTPResponse
+    mutating func update(request: HTTPRequest, id: String) throws -> HTTPResponse
+    mutating func destroy(request: HTTPRequest, id: String) throws -> HTTPResponse
 }
 
 extension HTTPResourceType {
@@ -41,15 +41,15 @@ extension HTTPResourceType {
         return HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed")
     }
 
-    func show(request: HTTPRequest) throws -> HTTPResponse {
+    func show(request: HTTPRequest, id: String) throws -> HTTPResponse {
         return HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed")
     }
 
-    func update(request: HTTPRequest) throws -> HTTPResponse {
+    func update(request: HTTPRequest, id: String) throws -> HTTPResponse {
         return HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed")
     }
 
-    func destroy(request: HTTPRequest) throws -> HTTPResponse {
+    func destroy(request: HTTPRequest, id: String) throws -> HTTPResponse {
         return HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed")
     }
 }
