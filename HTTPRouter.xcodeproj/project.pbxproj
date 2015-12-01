@@ -122,7 +122,7 @@
 		B005109B1BE97B7B001B3F26 /* HTTPRouter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HTTPRouter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B00510A51BE97B7B001B3F26 /* HTTPRouterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HTTPRouterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B00510EA1BE9952D001B3F26 /* HTTPRouter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HTTPRouter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B00510F31BE9952D001B3F26 /* SpellTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpellTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B00510F31BE9952D001B3F26 /* HTTPRouterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HTTPRouterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0B0A50B1C09EFAE005E92B0 /* HTTPResourceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPResourceType.swift; sourceTree = "<group>"; };
 		B0B0A50C1C09EFAE005E92B0 /* HTTPRouter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTTPRouter.h; sourceTree = "<group>"; };
 		B0B0A50D1C09EFAE005E92B0 /* HTTPRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRouter.swift; sourceTree = "<group>"; };
@@ -184,7 +184,7 @@
 				B005109B1BE97B7B001B3F26 /* HTTPRouter.framework */,
 				B00510A51BE97B7B001B3F26 /* HTTPRouterTests.xctest */,
 				B00510EA1BE9952D001B3F26 /* HTTPRouter.framework */,
-				B00510F31BE9952D001B3F26 /* SpellTests.xctest */,
+				B00510F31BE9952D001B3F26 /* HTTPRouterTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -324,7 +324,7 @@
 			);
 			name = "HTTPRouter iOS Tests";
 			productName = "Currents iOSTests";
-			productReference = B00510F31BE9952D001B3F26 /* SpellTests.xctest */;
+			productReference = B00510F31BE9952D001B3F26 /* HTTPRouterTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
