@@ -50,7 +50,8 @@ public struct HTTPRouter: HTTPResponderType {
             return regularExpression.matches(request.uri.path!) && methods.contains(request.method)
         }
 
-        func respond(var request: HTTPRequest) throws -> HTTPResponse {
+        func respond(request: HTTPRequest) throws -> HTTPResponse {
+            var request = request
             let values = self.regularExpression.groups(request.uri.path!)
 
             for (index, key) in parameterKeys.enumerate() {
