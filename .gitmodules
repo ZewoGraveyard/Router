@@ -1,8 +1,0 @@
-[submodule "POSIXRegex"]
-	path = POSIXRegex
-	url = https://github.com/Zewo/POSIXRegex
-	branch = master
-[submodule "HTTP"]
-	path = HTTP
-	url = https://github.com/Zewo/HTTP
-	branch = master
