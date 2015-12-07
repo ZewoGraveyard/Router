@@ -189,7 +189,7 @@ public struct HTTPRouter: HTTPResponderType {
     let routes: [HTTPRoute]
     let fallback: HTTPRequest throws -> HTTPResponse
 
-    public init(basePath: String = "", build: (router: HTTPRouterBuilder) -> Void) {
+    public init(_ basePath: String = "", build: (router: HTTPRouterBuilder) -> Void) {
         let builder = HTTPRouterBuilder(basePath: basePath)
         build(router: builder)
 
