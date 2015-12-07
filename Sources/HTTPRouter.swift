@@ -95,7 +95,7 @@ public struct HTTPRouter: HTTPResponderType {
             fallback(responder.respond)
         }
 
-        public func any(path: String, respond: HTTPRequest throws -> HTTPResponse) {
+        public func any(path: String, _ respond: HTTPRequest throws -> HTTPResponse) {
             let route = HTTPRoute(
                 path: basePath + path,
                 methods: [
@@ -111,11 +111,11 @@ public struct HTTPRouter: HTTPResponderType {
             routes.append(route)
         }
 
-        public func any(path: String, responder: HTTPResponderType) {
-            any(path, respond: responder.respond)
+        public func any(path: String, _ responder: HTTPResponderType) {
+            any(path, responder.respond)
         }
 
-        public func get(path: String, respond: HTTPRequest throws -> HTTPResponse) {
+        public func get(path: String, _ respond: HTTPRequest throws -> HTTPResponse) {
             let route = HTTPRoute(
                 path: basePath + path,
                 methods: [.GET],
@@ -125,11 +125,11 @@ public struct HTTPRouter: HTTPResponderType {
             routes.append(route)
         }
 
-        public func get(path: String, responder: HTTPResponderType) {
-            get(path, respond: responder.respond)
+        public func get(path: String, _ responder: HTTPResponderType) {
+            get(path, responder.respond)
         }
 
-        public func post(path: String, respond: HTTPRequest throws -> HTTPResponse) {
+        public func post(path: String, _ respond: HTTPRequest throws -> HTTPResponse) {
             let route = HTTPRoute(
                 path: basePath + path,
                 methods: [.POST],
@@ -139,11 +139,11 @@ public struct HTTPRouter: HTTPResponderType {
             routes.append(route)
         }
 
-        public func post(path: String, responder: HTTPResponderType) {
-            post(path, respond: responder.respond)
+        public func post(path: String, _ responder: HTTPResponderType) {
+            post(path, responder.respond)
         }
 
-        public func put(path: String, respond: HTTPRequest throws -> HTTPResponse) {
+        public func put(path: String, _ respond: HTTPRequest throws -> HTTPResponse) {
             let route = HTTPRoute(
                 path: basePath + path,
                 methods: [.PUT],
@@ -153,11 +153,11 @@ public struct HTTPRouter: HTTPResponderType {
             routes.append(route)
         }
 
-        public func put(path: String, responder: HTTPResponderType) {
-            put(path, respond: responder.respond)
+        public func put(path: String, _ responder: HTTPResponderType) {
+            put(path, responder.respond)
         }
 
-        public func patch(path: String, respond: HTTPRequest throws -> HTTPResponse) {
+        public func patch(path: String, _ respond: HTTPRequest throws -> HTTPResponse) {
             let route = HTTPRoute(
                 path: basePath + path,
                 methods: [.PATCH],
@@ -167,11 +167,11 @@ public struct HTTPRouter: HTTPResponderType {
             routes.append(route)
         }
 
-        public func patch(path: String, responder: HTTPResponderType) {
-            patch(path, respond: responder.respond)
+        public func patch(path: String, _ responder: HTTPResponderType) {
+            patch(path, responder.respond)
         }
 
-        public func delete(path: String, respond: HTTPRequest throws -> HTTPResponse) {
+        public func delete(path: String, _ respond: HTTPRequest throws -> HTTPResponse) {
             let route = HTTPRoute(
                 path: basePath + path,
                 methods: [.DELETE],
@@ -181,107 +181,8 @@ public struct HTTPRouter: HTTPResponderType {
             routes.append(route)
         }
 
-        public func delete(path: String, responder: HTTPResponderType) {
-            delete(path, respond: responder.respond)
-        }
-
-        public final class HTTPResourceBuilder {
-            var index: HTTPRequest throws -> HTTPResponse = { request in
-                return HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed")
-            }
-
-            public func index(respond: HTTPRequest throws -> HTTPResponse) {
-                index = respond
-            }
-            
-            public func index(responder: HTTPResponderType) {
-                index = responder.respond
-            }
-
-            var create: HTTPRequest throws -> HTTPResponse = { request in
-                return HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed")
-            }
-
-            public func create(respond: HTTPRequest throws -> HTTPResponse) {
-                create = respond
-            }
-            
-            public func create(responder: HTTPResponderType) {
-                create = responder.respond
-            }
-
-            var show: HTTPRequest throws -> HTTPResponse = { request in
-                return HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed")
-            }
-
-            public func show(respond: (HTTPRequest, String) throws -> HTTPResponse) {
-                show = { request in
-                    return try respond(request, request.parameters["id"]!)
-                }
-            }
-            
-            public func show(responder: HTTPIdentifiableResponderType) {
-                show = { request in
-                    return try responder.respond(request, id: request.parameters["id"]!)
-                }
-            }
-
-            var update: HTTPRequest throws -> HTTPResponse = { request in
-                return HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed")
-            }
-
-            public func update(respond: (HTTPRequest, String) throws -> HTTPResponse) {
-                update = { request in
-                    return try respond(request, request.parameters["id"]!)
-                }
-            }
-            
-            public func update(responder: HTTPIdentifiableResponderType) {
-                update = { request in
-                    return try responder.respond(request, id: request.parameters["id"]!)
-                }
-            }
-
-            var destroy: HTTPRequest throws -> HTTPResponse = { request in
-                return HTTPResponse(statusCode: 405, reasonPhrase: "Method Not Allowed")
-            }
-
-            public func destroy(respond: (HTTPRequest, String) throws -> HTTPResponse) {
-                destroy = { request in
-                    return try respond(request, request.parameters["id"]!)
-                }
-            }
-            
-            public func destroy(responder: HTTPIdentifiableResponderType) {
-                destroy = { request in
-                    return try responder.respond(request, id: request.parameters["id"]!)
-                }
-            }
-        }
-
-        // TODO: Use regex to validate the path string.
-        public func resources(path: String, build: (resources: HTTPResourceBuilder) -> Void) {
-            let builder = HTTPResourceBuilder()
-            build(resources: builder)
-
-            get(path, respond: builder.index)
-            post(path, respond: builder.create)
-            get(path + "/:id", respond: builder.show)
-            put(path + "/:id", respond: builder.update)
-            patch(path + "/:id", respond: builder.update)
-            delete(path + "/:id", respond: builder.destroy)
-        }
-
-        // TODO: Use regex to validate the path string.
-        public func resource(path: String, build: (resource: HTTPResourceBuilder) -> Void) {
-            let builder = HTTPResourceBuilder()
-            build(resource: builder)
-
-            get(path, respond: builder.index)
-            post(path, respond: builder.create)
-            put(path, respond: builder.update)
-            patch(path, respond: builder.update)
-            delete(path, respond: builder.destroy)
+        public func delete(path: String, _ responder: HTTPResponderType) {
+            delete(path, responder.respond)
         }
     }
 
