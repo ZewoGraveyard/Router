@@ -26,6 +26,9 @@ import HTTP
 import POSIXRegex
 
 public struct Router: ResponderType {
+    let routes: [Route]
+    let fallback: Request throws -> Response
+
     struct Route: ResponderType {
         let path: String
         let methods: Set<Method>
@@ -74,17 +77,16 @@ public struct Router: ResponderType {
             return Response(statusCode: 404, reasonPhrase: "Not Found")
         }
 
-        public func group(basePath: String, build: (group: RouterBuilder) -> Void) {
-            let builder = RouterBuilder(basePath: basePath)
-            build(group: builder)
-
-            routes = builder.routes.map { route in
+        public func router(path: String, _ router: Router) {
+            let newRoutes = router.routes.map { route in
                 Route(
-                    path: self.basePath + route.path,
+                    path: self.basePath + path + route.path,
                     methods: route.methods,
                     routeRespond: route.routeRespond
                 )
             }
+
+            routes.appendContentsOf(newRoutes)
         }
 
         public func fallback(fallback: Request throws -> Response) {
@@ -186,15 +188,17 @@ public struct Router: ResponderType {
         }
     }
 
-    let routes: [Route]
-    let fallback: Request throws -> Response
-
     public init(_ basePath: String = "", build: (router: RouterBuilder) -> Void) {
         let builder = RouterBuilder(basePath: basePath)
         build(router: builder)
 
         fallback = builder.fallback
         routes = builder.routes
+    }
+
+    init(routes: [Route], fallback: Request throws -> Response) {
+        self.routes = routes
+        self.fallback = fallback
     }
 
     public func respond(request: Request) throws -> Response {

@@ -1,0 +1,14 @@
+import HTTPMiddleware
+
+public func >>>(middleware: RequestMiddlewareType, router: Router) -> Router {
+    return Router(
+        routes: router.routes.map { route in
+            Router.Route(
+                path: route.path,
+                methods: route.methods,
+                routeRespond: (middleware >>> route.routeRespond).respond
+            )
+        },
+        fallback: (middleware >>> router.fallback).respond
+    )
+}
