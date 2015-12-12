@@ -29,9 +29,9 @@ public struct Router: ResponderType {
     public let fallback: Request throws -> Response
 
     public struct Route: ResponderType {
-        let path: String
-        let methods: Set<Method>
-        let routeRespond: Request throws -> Response
+        public let path: String
+        public let methods: Set<Method>
+        public let routeRespond: Request throws -> Response
 
         private let parameterKeys: [String]
         private let regularExpression: Regex
