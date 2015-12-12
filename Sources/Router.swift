@@ -22,9 +22,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+import Core
 import HTTP
-import POSIXRegex
-
 public struct Router: ResponderType {
     let routes: [Route]
     let fallback: Request throws -> Response
