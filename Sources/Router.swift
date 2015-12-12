@@ -36,7 +36,7 @@ public struct Router: ResponderType {
         private let parameterKeys: [String]
         private let regularExpression: Regex
 
-        init(path: String, methods: Set<Method>, routeRespond: Request throws -> Response) {
+        public init(path: String, methods: Set<Method>, routeRespond: Request throws -> Response) {
             self.path = path
             self.methods = methods
             self.routeRespond = routeRespond
