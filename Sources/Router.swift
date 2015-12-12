@@ -28,7 +28,7 @@ public struct Router: ResponderType {
     let routes: [Route]
     let fallback: Request throws -> Response
 
-    struct Route: ResponderType {
+    public struct Route: ResponderType {
         let path: String
         let methods: Set<Method>
         let routeRespond: Request throws -> Response
@@ -52,7 +52,7 @@ public struct Router: ResponderType {
             return regularExpression.matches(request.uri.path!) && methods.contains(request.method)
         }
 
-        func respond(request: Request) throws -> Response {
+        public  func respond(request: Request) throws -> Response {
             var request = request
             let values = self.regularExpression.groups(request.uri.path!)
 
@@ -195,7 +195,7 @@ public struct Router: ResponderType {
         routes = builder.routes
     }
 
-    init(routes: [Route], fallback: Request throws -> Response) {
+    public init(routes: [Route], fallback: Request throws -> Response) {
         self.routes = routes
         self.fallback = fallback
     }
