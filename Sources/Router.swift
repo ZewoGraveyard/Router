@@ -25,8 +25,8 @@
 import Core
 import HTTP
 public struct Router: ResponderType {
-    let routes: [Route]
-    let fallback: Request throws -> Response
+    public let routes: [Route]
+    public let fallback: Request throws -> Response
 
     public struct Route: ResponderType {
         let path: String
