@@ -42,7 +42,7 @@ public struct Router: ResponderType {
             self.routeRespond = routeRespond
 
             let parameterRegularExpression = try! Regex(pattern: ":([[:alnum:]]+)")
-            let pattern = parameterRegularExpression.replace(path, withTemplate: "([[:alnum:]]+)")
+            let pattern = parameterRegularExpression.replace(path, withTemplate: "([[:alnum:]_-]+)")
 
             self.parameterKeys = parameterRegularExpression.groups(path)
             self.regularExpression = try! Regex(pattern: "^" + pattern + "$")
