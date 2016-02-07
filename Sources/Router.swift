@@ -41,15 +41,18 @@ public struct Router: ResponderType {
             self.methods = methods
             self.routeRespond = routeRespond
 
-            let parameterRegularExpression = try! Regex(pattern: ":([[:alnum:]]+)")
-            let pattern = parameterRegularExpression.replace(path, withTemplate: "([[:alnum:]_-]+)")
+            let parameterRegularExpression = try! Regex(pattern: ":([^/]+)")
+            let pattern = parameterRegularExpression.replace(path, withTemplate: "([^/]+)")
 
             self.parameterKeys = parameterRegularExpression.groups(path)
             self.regularExpression = try! Regex(pattern: "^" + pattern + "$")
         }
 
         func matchesRequest(request: Request) -> Bool {
-            return regularExpression.matches(request.uri.path!) && methods.contains(request.method)
+			if let path = request.uri.path {
+				return regularExpression.matches(path) && methods.contains(request.method)
+			}
+			return false
         }
 
         public  func respond(request: Request) throws -> Response {
