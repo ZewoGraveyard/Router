@@ -23,13 +23,14 @@
 // SOFTWARE.
 
 @_exported import TrieRouteMatcher
+@_exported import RegexRouteMatcher
 
 public struct Router: RouterType {
     public let middleware: [MiddlewareType]
     public let matcher: RouteMatcherType
     public let fallback: ResponderType
 
-    public init(_ basePath: String = "", middleware: MiddlewareType..., matcher: RouteMatcherType.Type = TrieRouteMatcher.self, build: (route: RouterBuilder) -> Void) {
+    public init(_ basePath: String = "", middleware: MiddlewareType..., matcher: RouteMatcherType.Type = RegexRouteMatcher.self, build: (route: RouterBuilder) -> Void) {
         let builder = RouterBuilder(basePath: basePath)
         build(route: builder)
         self.middleware = middleware
