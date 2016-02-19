@@ -53,7 +53,7 @@ extension RouterBuilder {
                         return Response(status: .BadRequest)
                     }
 
-                    let prefixLength = prefix.characters.count - 1
+                    let prefixLength = prefix.characters.count
                     request.uri.path = String(path.characters.dropFirst(prefixLength))
                     return try router.respond(request)
                 }
