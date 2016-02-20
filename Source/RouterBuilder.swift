@@ -39,7 +39,9 @@ public final class RouterBuilder {
 
 extension RouterBuilder {
     public func router(path: String, middleware: MiddlewareType..., router: RouterType) {
+
         let prefix = basePath + path
+        let prefixPathComponents = router.matcher.splitPathIntoComponents(prefix)
 
         let newRoutes = router.matcher.routes.map { route in
             return Route(
@@ -53,8 +55,13 @@ extension RouterBuilder {
                         return Response(status: .BadRequest)
                     }
 
-                    let prefixLength = prefix.characters.count
-                    request.uri.path = String(path.characters.dropFirst(prefixLength))
+                    let requestPathComponents = router.matcher.splitPathIntoComponents(path)
+
+                    let shortenedRequestPathComponents = requestPathComponents.dropFirst(prefixPathComponents.count)
+
+                    let shortenedPath = router.matcher.mergePathComponents(Array(shortenedRequestPathComponents))
+
+                    request.uri.path = shortenedPath
                     return try router.respond(request)
                 }
             )
