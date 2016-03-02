@@ -28,9 +28,9 @@ public final class RouterBuilder {
     let path: String
     var routes: [RouteType] = []
 
-    var fallbackAction = Action(
-        responder: Responder { _ in Response(status: .NotFound) }
-    )
+    var fallbackAction = Action { _ in
+        Response(status: .NotFound)
+    }
 
     init(path: String = "") {
         self.path = path
@@ -38,7 +38,7 @@ public final class RouterBuilder {
 }
 
 extension RouterBuilder {
-    public func compose(path: String, middleware: MiddlewareType..., router: RouterType) {
+    public func compose(path: String = "", middleware: MiddlewareType..., router: RouterType) {
         let prefix = self.path + path
         let prefixPathComponentsCount = router.splitPathIntoComponents(prefix).count
 
@@ -66,27 +66,29 @@ extension RouterBuilder {
             }
         }
     }
+
+    public func compose(router: RouterType) {
+        compose(router: router)
+    }
 }
 
 extension RouterBuilder {
     public var fallback: ResponderType {
         get {
-            return Responder(respond: fallbackAction.respond)
+            return Responder(fallbackAction.respond)
         }
 
         set {
-            self.fallbackAction = Action(
-                responder: Responder { _ in Response(status: .NotFound) }
-            )
+            self.fallbackAction = Action(newValue)
         }
-    }
-
-    public func fallback(middleware middleware: MiddlewareType..., respond: Respond) {
-        fallback(middleware, responder: Responder(respond: respond))
     }
 
     public func fallback(middleware middleware: MiddlewareType..., responder: ResponderType) {
         fallback(middleware, responder: responder)
+    }
+
+    public func fallback(middleware middleware: MiddlewareType..., respond: Respond) {
+        fallback(middleware, responder: Responder(respond))
     }
 
     private func fallback(middleware: [MiddlewareType], responder: ResponderType) {
@@ -98,12 +100,20 @@ extension RouterBuilder {
 }
 
 extension RouterBuilder {
-    public func get(path: String, middleware: MiddlewareType..., respond: Respond) {
-        get(path, middleware: middleware, responder: Responder(respond: respond))
-    }
-
     public func get(path: String, middleware: MiddlewareType..., responder: ResponderType) {
         get(path, middleware: middleware, responder: responder)
+    }
+
+    public func get(path: String, _ responder: ResponderType) {
+        get(path, responder: responder)
+    }
+
+    public func get(path: String, middleware: MiddlewareType..., respond: Respond) {
+        get(path, middleware: middleware, responder: Responder(respond))
+    }
+
+    public func get(path: String, _ respond: Respond) {
+        get(path, respond: respond)
     }
 
     private func get(path: String, middleware: [MiddlewareType], responder: ResponderType) {
@@ -112,12 +122,20 @@ extension RouterBuilder {
 }
 
 extension RouterBuilder {
-    public func post(path: String, middleware: MiddlewareType..., respond: Respond) {
-        post(path, middleware: middleware, responder: Responder(respond: respond))
-    }
-
     public func post(path: String, middleware: MiddlewareType..., responder: ResponderType) {
         post(path, middleware: middleware, responder: responder)
+    }
+
+    public func post(path: String, _ responder: ResponderType) {
+        post(path, responder: responder)
+    }
+
+    public func post(path: String, middleware: MiddlewareType..., respond: Respond) {
+        post(path, middleware: middleware, responder: Responder(respond))
+    }
+
+    public func post(path: String, _ respond: Respond) {
+        post(path, respond: respond)
     }
 
     private func post(path: String, middleware: [MiddlewareType], responder: ResponderType) {
@@ -126,12 +144,20 @@ extension RouterBuilder {
 }
 
 extension RouterBuilder {
-    public func put(path: String, middleware: MiddlewareType..., respond: Respond) {
-        put(path, middleware: middleware, responder: Responder(respond: respond))
-    }
-
     public func put(path: String, middleware: MiddlewareType..., responder: ResponderType) {
         put(path, middleware: middleware, responder: responder)
+    }
+
+    public func put(path: String, _ responder: ResponderType) {
+        put(path, responder: responder)
+    }
+
+    public func put(path: String, middleware: MiddlewareType..., respond: Respond) {
+        put(path, middleware: middleware, responder: Responder(respond))
+    }
+
+    public func put(path: String, _ respond: Respond) {
+        put(path, respond: respond)
     }
 
     private func put(path: String, middleware: [MiddlewareType], responder: ResponderType) {
@@ -140,12 +166,20 @@ extension RouterBuilder {
 }
 
 extension RouterBuilder {
-    public func patch(path: String, middleware: MiddlewareType..., respond: Respond) {
-        patch(path, middleware: middleware, responder: Responder(respond: respond))
-    }
-
     public func patch(path: String, middleware: MiddlewareType..., responder: ResponderType) {
         patch(path, middleware: middleware, responder: responder)
+    }
+
+    public func patch(path: String, _ responder: ResponderType) {
+        patch(path, responder: responder)
+    }
+
+    public func patch(path: String, middleware: MiddlewareType..., respond: Respond) {
+        patch(path, middleware: middleware, responder: Responder(respond))
+    }
+
+    public func patch(path: String, _ respond: Respond) {
+        patch(path, respond: respond)
     }
 
     private func patch(path: String, middleware: [MiddlewareType], responder: ResponderType) {
@@ -154,12 +188,20 @@ extension RouterBuilder {
 }
 
 extension RouterBuilder {
-    public func delete(path: String, middleware: MiddlewareType..., respond: Respond) {
-        delete(path, middleware: middleware, responder: Responder(respond: respond))
-    }
-
     public func delete(path: String, middleware: MiddlewareType..., responder: ResponderType) {
         delete(path, middleware: middleware, responder: responder)
+    }
+
+    public func delete(path: String, _ responder: ResponderType) {
+        delete(path, responder: responder)
+    }
+
+    public func delete(path: String, middleware: MiddlewareType..., respond: Respond) {
+        delete(path, middleware: middleware, responder: Responder(respond))
+    }
+
+    public func delete(path: String, _ respond: Respond) {
+        delete(path, respond: respond)
     }
 
     private func delete(path: String, middleware: [MiddlewareType], responder: ResponderType) {
@@ -168,49 +210,67 @@ extension RouterBuilder {
 }
 
 extension RouterBuilder {
-    public func methods(methods: Set<Method>, path: String, middleware: MiddlewareType..., respond: Respond) {
-        for method in methods {
-            addRoute(method: method, path: path, middleware: middleware, responder: Responder(respond: respond))
-        }
-    }
-
     public func methods(methods: Set<Method>, path: String, middleware: MiddlewareType..., responder: ResponderType) {
         for method in methods {
             addRoute(method: method, path: path, middleware: middleware, responder: responder)
         }
     }
+
+    public func methods(m: Set<Method>, _ path: String, _ responder: ResponderType) {
+        methods(m, path: path, responder: responder)
+    }
+
+    public func methods(methods: Set<Method>, path: String, middleware: MiddlewareType..., respond: Respond) {
+        for method in methods {
+            addRoute(method: method, path: path, middleware: middleware, responder: Responder(respond))
+        }
+    }
+
+    public func methods(m: Set<Method>, _ path: String, _ respond: Respond) {
+        methods(m, path: path, respond: respond)
+    }
 }
 
 extension RouterBuilder {
-    public func fallback(path: String, middleware: MiddlewareType..., respond: Respond) {
-        fallback(middleware, responder: Responder(respond: respond))
-    }
-
     public func fallback(path: String, middleware: MiddlewareType..., responder: ResponderType) {
-        fallback(middleware, responder: responder)
+        addRouteFallback(path: path, middleware: middleware, responder: responder)
+    }
+
+    public func fallback(path: String, _ responder: ResponderType) {
+        fallback(path, responder: responder)
+    }
+
+    public func fallback(path: String, middleware: MiddlewareType..., respond: Respond) {
+        addRouteFallback(path: path, middleware: middleware, responder: Responder(respond))
+    }
+
+    public func fallback(path: String, _ respond: Respond) {
+        fallback(path, respond: respond)
     }
 }
 
 extension RouterBuilder {
-    private func fallback(path: String, middleware: [MiddlewareType], responder: ResponderType) {
+    private func addRouteFallback(path path: String, middleware: [MiddlewareType], responder: ResponderType) {
         let fallback = Action(middleware: middleware, responder: responder)
-        let finalPath = self.path + path
+        let routePath = self.path + path
 
-        if let route = routeFor(finalPath) {
+        if let route = routeFor(routePath) {
             route.fallback = fallback
         } else {
-            createRoute(path: finalPath, fallback: fallback)
+            let route = Route(path: path, fallback: fallback)
+            routes.append(route)
         }
     }
 
     private func addRoute(method method: Method, path: String, middleware: [MiddlewareType], responder: ResponderType) {
         let action = Action(middleware: middleware, responder: responder)
-        let finalPath = self.path + path
+        let routePath = self.path + path
 
-        if let route = routeFor(finalPath) {
+        if let route = routeFor(routePath) {
             route.addAction(method: method, action: action)
         } else {
-            createRoute(path: finalPath, method: method, action: action)
+            let route = Route(path: path, actions: [method: action])
+            routes.append(route)
         }
     }
 
@@ -220,28 +280,12 @@ extension RouterBuilder {
         }
         return nil
     }
-
-    private func createRoute(path path: String, method: Method, action: Action) {
-        let route = Route(
-            path: path,
-            actions: [method: action]
-        )
-        routes.append(route)
-    }
-
-    private func createRoute(path path: String, fallback: Action) {
-        let route = Route(
-            path: path,
-            fallback: fallback
-        )
-        routes.append(route)
-    }
 }
 
-public final class Route: RouteType {
-    public let path: String
-    public var actions: [Method: Action]
-    public var fallback: Action
+final class Route: RouteType {
+    let path: String
+    var actions: [Method: Action]
+    var fallback: Action
 
     init(path: String, actions: [Method: Action] = [:], fallback: Action = Route.defaultFallback) {
         self.path = path
@@ -253,9 +297,7 @@ public final class Route: RouteType {
         actions[method] = action
     }
 
-    static var defaultFallback: Action {
-        return Action(
-            responder: Responder { _ in Response(status: .MethodNotAllowed) }
-        )
+    static let defaultFallback = Action { _ in
+        Response(status: .MethodNotAllowed)
     }
 }
