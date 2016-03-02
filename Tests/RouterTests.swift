@@ -26,24 +26,28 @@ import XCTest
 @testable import Router
 
 class RouterTests: XCTestCase {
+    func testRouterBuilder() {
+        let responder = Responder { _ in Response() }
 
-    func testExample() {
-        XCTAssert(true)
+        let builder = RouterBuilder()
+        builder.get("/users", responder: responder)
+        builder.post("/users", responder: responder)
+
+        XCTAssertEqual(builder.routes.count, 1)
+        XCTAssertEqual(builder.routes.first?.actions.count, 2)
     }
 
     func testNestedRoutersWithParameters() {
-        let router = Router { route in
-            route.router("/:greeting", router: Router { route in
-                route.get("/:location") { request in
+        let router = Router("/:greeting") { route in
+            route.compose("/:adjective", router: Router { route in
+                route.get("/:location/of/zewo") { request in
                     return Response(status: .OK)
                 }
             })
         }
 
-        let request = try! Request(method: .GET, uri: "/hello/world")
-
+        let request = try! Request(method: .GET, uri: "/hello/beautiful/world/of/zewo")
         let response = try! router.respond(request)
-
-        XCTAssert(response.statusCode == 200)
+        XCTAssertEqual(response.statusCode, 200)
     }
 }

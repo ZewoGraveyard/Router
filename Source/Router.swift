@@ -27,14 +27,20 @@
 
 public struct Router: RouterType {
     public let middleware: [MiddlewareType]
+    public let routes: [RouteType]
+    public let fallback: Action
     public let matcher: RouteMatcherType
-    public let fallback: ResponderType
 
-    public init(_ basePath: String = "", middleware: MiddlewareType..., matcher: RouteMatcherType.Type = TrieRouteMatcher.self, build: (route: RouterBuilder) -> Void) {
-        let builder = RouterBuilder(basePath: basePath)
+    public init(_ path: String = "", middleware: MiddlewareType..., matcher: RouteMatcherType.Type = RegexRouteMatcher.self, build: (route: RouterBuilder) -> Void) {
+        let builder = RouterBuilder(path: path)
         build(route: builder)
         self.middleware = middleware
+        self.routes = builder.routes
+        self.fallback = builder.fallbackAction
         self.matcher = matcher.init(routes: builder.routes)
-        self.fallback = builder.fallback
+    }
+
+    public func match(request: Request) -> RouteType? {
+        return matcher.match(request)
     }
 }
