@@ -104,16 +104,8 @@ extension RouterBuilder {
         get(path, middleware: middleware, responder: responder)
     }
 
-    public func get(path: String, _ responder: ResponderType) {
-        get(path, responder: responder)
-    }
-
     public func get(path: String, middleware: MiddlewareType..., respond: Respond) {
         get(path, middleware: middleware, responder: Responder(respond))
-    }
-
-    public func get(path: String, _ respond: Respond) {
-        get(path, respond: respond)
     }
 
     private func get(path: String, middleware: [MiddlewareType], responder: ResponderType) {
@@ -126,16 +118,8 @@ extension RouterBuilder {
         post(path, middleware: middleware, responder: responder)
     }
 
-    public func post(path: String, _ responder: ResponderType) {
-        post(path, responder: responder)
-    }
-
     public func post(path: String, middleware: MiddlewareType..., respond: Respond) {
         post(path, middleware: middleware, responder: Responder(respond))
-    }
-
-    public func post(path: String, _ respond: Respond) {
-        post(path, respond: respond)
     }
 
     private func post(path: String, middleware: [MiddlewareType], responder: ResponderType) {
@@ -148,16 +132,8 @@ extension RouterBuilder {
         put(path, middleware: middleware, responder: responder)
     }
 
-    public func put(path: String, _ responder: ResponderType) {
-        put(path, responder: responder)
-    }
-
     public func put(path: String, middleware: MiddlewareType..., respond: Respond) {
         put(path, middleware: middleware, responder: Responder(respond))
-    }
-
-    public func put(path: String, _ respond: Respond) {
-        put(path, respond: respond)
     }
 
     private func put(path: String, middleware: [MiddlewareType], responder: ResponderType) {
@@ -170,16 +146,8 @@ extension RouterBuilder {
         patch(path, middleware: middleware, responder: responder)
     }
 
-    public func patch(path: String, _ responder: ResponderType) {
-        patch(path, responder: responder)
-    }
-
     public func patch(path: String, middleware: MiddlewareType..., respond: Respond) {
         patch(path, middleware: middleware, responder: Responder(respond))
-    }
-
-    public func patch(path: String, _ respond: Respond) {
-        patch(path, respond: respond)
     }
 
     private func patch(path: String, middleware: [MiddlewareType], responder: ResponderType) {
@@ -192,16 +160,8 @@ extension RouterBuilder {
         delete(path, middleware: middleware, responder: responder)
     }
 
-    public func delete(path: String, _ responder: ResponderType) {
-        delete(path, responder: responder)
-    }
-
     public func delete(path: String, middleware: MiddlewareType..., respond: Respond) {
         delete(path, middleware: middleware, responder: Responder(respond))
-    }
-
-    public func delete(path: String, _ respond: Respond) {
-        delete(path, respond: respond)
     }
 
     private func delete(path: String, middleware: [MiddlewareType], responder: ResponderType) {
@@ -216,18 +176,10 @@ extension RouterBuilder {
         }
     }
 
-    public func methods(m: Set<Method>, _ path: String, _ responder: ResponderType) {
-        methods(m, path: path, responder: responder)
-    }
-
     public func methods(methods: Set<Method>, path: String, middleware: MiddlewareType..., respond: Respond) {
         for method in methods {
             addRoute(method: method, path: path, middleware: middleware, responder: Responder(respond))
         }
-    }
-
-    public func methods(m: Set<Method>, _ path: String, _ respond: Respond) {
-        methods(m, path: path, respond: respond)
     }
 }
 
@@ -236,16 +188,8 @@ extension RouterBuilder {
         addRouteFallback(path: path, middleware: middleware, responder: responder)
     }
 
-    public func fallback(path: String, _ responder: ResponderType) {
-        fallback(path, responder: responder)
-    }
-
     public func fallback(path: String, middleware: MiddlewareType..., respond: Respond) {
         addRouteFallback(path: path, middleware: middleware, responder: Responder(respond))
-    }
-
-    public func fallback(path: String, _ respond: Respond) {
-        fallback(path, respond: respond)
     }
 }
 
