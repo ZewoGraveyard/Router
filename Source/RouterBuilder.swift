@@ -65,25 +65,6 @@ extension RouterBuilder {
                 )
             }
         }
-
-        addRouteFallback(
-            path: path,// + router.path,
-            middleware: router.fallback.middleware,
-            responder: Responder { request in
-                var request = request
-
-                guard let path = request.path else {
-                    return Response(status: .BadRequest)
-                }
-
-                let requestPathComponents = router.splitPathIntoComponents(path)
-                let shortenedRequestPathComponents = requestPathComponents.dropFirst(prefixPathComponentsCount)
-                let shortenedPath = router.mergePathComponents(Array(shortenedRequestPathComponents))
-
-                request.uri.path = shortenedPath
-                return try router.respond(request)
-            }
-        )
     }
 
     public func compose(router: RouterType) {
@@ -194,7 +175,6 @@ extension RouterBuilder {
             addRoute(method: method, path: path, middleware: middleware, responder: responder)
         }
     }
-
 
     public func methods(methods: Set<Method>, path: String, middleware: MiddlewareType..., respond: Respond) {
         for method in methods {
