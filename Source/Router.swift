@@ -31,7 +31,7 @@ public struct Router: RouterType {
     public let fallback: Action
     public let matcher: RouteMatcherType
 
-    public init(_ path: String = "", middleware: MiddlewareType..., matcher: TrieRouteMatcher.Type = RegexRouteMatcher.self, build: (route: RouterBuilder) -> Void) {
+    public init(_ path: String = "", middleware: MiddlewareType..., matcher: RouteMatcherType.Type = TrieRouteMatcher.self, build: (route: RouterBuilder) -> Void) {
         let builder = RouterBuilder(path: path)
         build(route: builder)
         self.middleware = middleware
