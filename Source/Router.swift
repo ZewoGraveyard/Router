@@ -25,22 +25,22 @@
 @_exported import TrieRouteMatcher
 @_exported import RegexRouteMatcher
 
-public struct Router: RouterType {
-    public let middleware: [MiddlewareType]
-    public let routes: [RouteType]
-    public let fallback: Action
-    public let matcher: RouteMatcherType
+public struct Router: HTTP.Router {
+    public let middleware: [Middleware]
+    public let routes: [Route]
+    public let fallback: Responder
+    public let matcher: RouteMatcher
 
-    public init(_ path: String = "", middleware: MiddlewareType..., matcher: RouteMatcherType.Type = TrieRouteMatcher.self, build: (route: RouterBuilder) -> Void) {
+    public init(_ path: String = "", middleware: Middleware..., matcher: RouteMatcher.Type = TrieRouteMatcher.self, build: (route: RouterBuilder) -> Void) {
         let builder = RouterBuilder(path: path)
         build(route: builder)
         self.middleware = middleware
         self.routes = builder.routes
-        self.fallback = builder.fallbackAction
+        self.fallback = builder.fallback
         self.matcher = matcher.init(routes: builder.routes)
     }
 
-    public func match(request: Request) -> RouteType? {
+    public func match(request: Request) -> Route? {
         return matcher.match(request)
     }
 }
