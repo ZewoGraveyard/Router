@@ -44,3 +44,10 @@ public struct Router: HTTP.Router {
         return matcher.match(request)
     }
 }
+
+extension Router {
+    public func respond(request: Request) throws -> Response {
+        let responder = match(request) ?? fallback
+        return try middleware.intercept(responder).respond(request)
+    }
+}
