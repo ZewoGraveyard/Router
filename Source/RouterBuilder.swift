@@ -38,7 +38,7 @@ public final class RouterBuilder {
 }
 
 extension RouterBuilder {
-    public func compose(path: String = "", middleware: Middleware..., router: Router) {
+    public func compose(path: String = "", middleware: Middleware..., router: S4.Router) {
         let prefix = self.path + path
         let prefixPathComponentsCount = router.splitPathIntoComponents(prefix).count
 
@@ -67,7 +67,7 @@ extension RouterBuilder {
         }
     }
 
-    public func compose(router: Router) {
+    public func compose(router: S4.Router) {
         compose(router: router)
     }
 }
