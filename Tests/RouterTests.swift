@@ -27,7 +27,7 @@ import XCTest
 
 class RouterTests: XCTestCase {
     func testRouterBuilder() {
-        let responder = Responder { _ in Response() }
+        let responder = BasicResponder { _ in Response() }
 
         let builder = RouterBuilder()
         builder.get("/users", responder: responder)
@@ -41,12 +41,12 @@ class RouterTests: XCTestCase {
         let router = Router("/:greeting") { route in
             route.compose("/:adjective", router: Router { route in
                 route.get("/:location/of/zewo") { request in
-                    return Response(status: .OK)
+                    return Response(status: .ok)
                 }
             })
         }
 
-        let request = try! Request(method: .GET, uri: "/hello/beautiful/world/of/zewo")
+        let request = try! Request(method: .get, uri: "/hello/beautiful/world/of/zewo")
         let response = try! router.respond(request)
         XCTAssertEqual(response.statusCode, 200)
     }

@@ -46,7 +46,7 @@ extension RouterBuilder {
             for (method, _) in route.actions {
                 addRoute(
                     method: method,
-                    path: path + route.path,
+                    path: prefix + route.path,
                     middleware: middleware,
                     responder: BasicResponder { request in
                         var request = request
