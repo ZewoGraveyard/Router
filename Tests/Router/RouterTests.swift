@@ -83,3 +83,13 @@ class RouterTests: XCTestCase {
         XCTAssertEqual(body2, "route 2")
     }
 }
+
+extension RouterTests {
+    static var allTests: [(String, RouterTests -> () throws -> Void)] {
+        return [
+            ("testRouterBuilder", testRouterBuilder),
+            ("testNestedRoutersWithParameters", testNestedRoutersWithParameters),
+            ("testNestedRouterWithSamePaths", testNestedRouterWithSamePaths)
+        ]
+    }
+}
