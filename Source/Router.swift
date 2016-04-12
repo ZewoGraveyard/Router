@@ -46,8 +46,8 @@ public struct Router: HTTP.Router {
 }
 
 extension Router {
-    public func respond(request: Request) throws -> Response {
+    public func respond(to request: Request) throws -> Response {
         let responder = match(request) ?? fallback
-        return try middleware.intercept(responder).respond(request)
+        return try middleware.chain(to: responder).respond(to: request)
     }
 }

@@ -38,7 +38,7 @@ public final class RouterBuilder {
 }
 
 extension RouterBuilder {
-    public func compose(path: String = "", middleware: Middleware..., router: S4.Router) {
+    public func compose(path: String = "", middleware: Middleware..., router: Router) {
         let prefix = self.path + path
         let prefixPathComponentsCount = router.splitPathIntoComponents(prefix).count
 
@@ -67,7 +67,7 @@ extension RouterBuilder {
         }
     }
 
-    public func compose(router: S4.Router) {
+    public func compose(router: Router) {
         compose(router: router)
     }
 }
@@ -82,7 +82,7 @@ extension RouterBuilder {
     }
 
     private func fallback(middleware: [Middleware], responder: Responder) {
-        fallback = middleware.intercept(responder)
+        fallback = middleware.chain(to: responder)
     }
 }
 
@@ -182,7 +182,7 @@ extension RouterBuilder {
 
 extension RouterBuilder {
     public func addRouteFallback(path path: String, middleware: [Middleware], responder: Responder) {
-        let fallback = middleware.intercept(responder)
+        let fallback = middleware.chain(to: responder)
         let routePath = self.path + path
 
         if let route = routeFor(routePath) {
@@ -194,7 +194,7 @@ extension RouterBuilder {
     }
 
     public func addRoute(method method: Method, path: String, middleware: [Middleware], responder: Responder) {
-        let action = middleware.intercept(responder)
+        let action = middleware.chain(to: responder)
         let routePath = self.path + path
 
         if let route = routeFor(routePath) {
@@ -213,7 +213,7 @@ extension RouterBuilder {
     }
 }
 
-extension S4.Router {
+extension Router {
     public func splitPathIntoComponents(path: String) -> [String] {
         return path.split("/")
     }
