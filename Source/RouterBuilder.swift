@@ -90,13 +90,27 @@ extension RouterBuilder {
     public func get(path: String, middleware: Middleware..., responder: Responder) {
         get(path, middleware: middleware, responder: responder)
     }
-
+    
     public func get(path: String, middleware: Middleware..., respond: Respond) {
         get(path, middleware: middleware, responder: BasicResponder(respond))
     }
-
+    
     private func get(path: String, middleware: [Middleware], responder: Responder) {
         addRoute(method: .get, path: path, middleware: middleware, responder: responder)
+    }
+}
+
+extension RouterBuilder {
+    public func options(path: String, middleware: Middleware..., responder: Responder) {
+        options(path, middleware: middleware, responder: responder)
+    }
+    
+    public func options(path: String, middleware: Middleware..., respond: Respond) {
+        options(path, middleware: middleware, responder: BasicResponder(respond))
+    }
+    
+    private func options(path: String, middleware: [Middleware], responder: Responder) {
+        addRoute(method: .options, path: path, middleware: middleware, responder: responder)
     }
 }
 
