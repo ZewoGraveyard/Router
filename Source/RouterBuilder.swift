@@ -60,112 +60,112 @@ extension RouterBuilder {
                         let shortenedPath = router.mergePathComponents(Array(shortenedRequestPathComponents))
 
                         request.uri.path = shortenedPath
-                        return try router.respond(request)
+                        return try router.respond(to: request)
                     }
                 )
             }
         }
     }
 
-    public func compose(router: Router) {
+    public func compose(_ router: Router) {
         compose(router: router)
     }
 }
 
 extension RouterBuilder {
-    public func fallback(middleware middleware: Middleware..., responder: Responder) {
+    public func fallback(_ middleware: Middleware..., responder: Responder) {
         fallback(middleware, responder: responder)
     }
 
-    public func fallback(middleware middleware: Middleware..., respond: Respond) {
+    public func fallback(_ middleware: Middleware..., respond: Respond) {
         fallback(middleware, responder: BasicResponder(respond))
     }
 
-    private func fallback(middleware: [Middleware], responder: Responder) {
+    private func fallback(_ middleware: [Middleware], responder: Responder) {
         fallback = middleware.chain(to: responder)
     }
 }
 
 extension RouterBuilder {
-    public func get(path: String, middleware: Middleware..., responder: Responder) {
+    public func get(_ path: String, middleware: Middleware..., responder: Responder) {
         get(path, middleware: middleware, responder: responder)
     }
     
-    public func get(path: String, middleware: Middleware..., respond: Respond) {
+    public func get(_ path: String, middleware: Middleware..., respond: Respond) {
         get(path, middleware: middleware, responder: BasicResponder(respond))
     }
     
-    private func get(path: String, middleware: [Middleware], responder: Responder) {
+    private func get(_ path: String, middleware: [Middleware], responder: Responder) {
         addRoute(method: .get, path: path, middleware: middleware, responder: responder)
     }
 }
 
 extension RouterBuilder {
-    public func options(path: String, middleware: Middleware..., responder: Responder) {
+    public func options(_ path: String, middleware: Middleware..., responder: Responder) {
         options(path, middleware: middleware, responder: responder)
     }
     
-    public func options(path: String, middleware: Middleware..., respond: Respond) {
+    public func options(_ path: String, middleware: Middleware..., respond: Respond) {
         options(path, middleware: middleware, responder: BasicResponder(respond))
     }
     
-    private func options(path: String, middleware: [Middleware], responder: Responder) {
+    private func options(_ path: String, middleware: [Middleware], responder: Responder) {
         addRoute(method: .options, path: path, middleware: middleware, responder: responder)
     }
 }
 
 extension RouterBuilder {
-    public func post(path: String, middleware: Middleware..., responder: Responder) {
+    public func post(_ path: String, middleware: Middleware..., responder: Responder) {
         post(path, middleware: middleware, responder: responder)
     }
 
-    public func post(path: String, middleware: Middleware..., respond: Respond) {
+    public func post(_ path: String, middleware: Middleware..., respond: Respond) {
         post(path, middleware: middleware, responder: BasicResponder(respond))
     }
 
-    private func post(path: String, middleware: [Middleware], responder: Responder) {
+    private func post(_ path: String, middleware: [Middleware], responder: Responder) {
         addRoute(method: .post, path: path, middleware: middleware, responder: responder)
     }
 }
 
 extension RouterBuilder {
-    public func put(path: String, middleware: Middleware..., responder: Responder) {
+    public func put(_ path: String, middleware: Middleware..., responder: Responder) {
         put(path, middleware: middleware, responder: responder)
     }
 
-    public func put(path: String, middleware: Middleware..., respond: Respond) {
+    public func put(_ path: String, middleware: Middleware..., respond: Respond) {
         put(path, middleware: middleware, responder: BasicResponder(respond))
     }
 
-    private func put(path: String, middleware: [Middleware], responder: Responder) {
+    private func put(_ path: String, middleware: [Middleware], responder: Responder) {
         addRoute(method: .put, path: path, middleware: middleware, responder: responder)
     }
 }
 
 extension RouterBuilder {
-    public func patch(path: String, middleware: Middleware..., responder: Responder) {
+    public func patch(_ path: String, middleware: Middleware..., responder: Responder) {
         patch(path, middleware: middleware, responder: responder)
     }
 
-    public func patch(path: String, middleware: Middleware..., respond: Respond) {
+    public func patch(_ path: String, middleware: Middleware..., respond: Respond) {
         patch(path, middleware: middleware, responder: BasicResponder(respond))
     }
 
-    private func patch(path: String, middleware: [Middleware], responder: Responder) {
+    private func patch(_ path: String, middleware: [Middleware], responder: Responder) {
         addRoute(method: .patch, path: path, middleware: middleware, responder: responder)
     }
 }
 
 extension RouterBuilder {
-    public func delete(path: String, middleware: Middleware..., responder: Responder) {
+    public func delete(_ path: String, middleware: Middleware..., responder: Responder) {
         delete(path, middleware: middleware, responder: responder)
     }
 
-    public func delete(path: String, middleware: Middleware..., respond: Respond) {
+    public func delete(_ path: String, middleware: Middleware..., respond: Respond) {
         delete(path, middleware: middleware, responder: BasicResponder(respond))
     }
 
-    private func delete(path: String, middleware: [Middleware], responder: Responder) {
+    private func delete(_ path: String, middleware: [Middleware], responder: Responder) {
         addRoute(method: .delete, path: path, middleware: middleware, responder: responder)
     }
 }
@@ -195,11 +195,11 @@ extension RouterBuilder {
 }
 
 extension RouterBuilder {
-    public func addRouteFallback(path path: String, middleware: [Middleware], responder: Responder) {
+    public func addRouteFallback(path: String, middleware: [Middleware], responder: Responder) {
         let fallback = middleware.chain(to: responder)
         let routePath = self.path + path
 
-        if let route = routeFor(routePath) {
+        if let route = route(for: routePath) {
             route.fallback = fallback
         } else {
             let route = BasicRoute(path: path, fallback: fallback)
@@ -207,11 +207,11 @@ extension RouterBuilder {
         }
     }
 
-    public func addRoute(method method: Method, path: String, middleware: [Middleware], responder: Responder) {
+    public func addRoute(method: Method, path: String, middleware: [Middleware], responder: Responder) {
         let action = middleware.chain(to: responder)
         let routePath = self.path + path
 
-        if let route = routeFor(routePath) {
+        if let route = route(for: routePath) {
             route.addAction(method: method, action: action)
         } else {
             let route = BasicRoute(path: path, actions: [method: action])
@@ -219,7 +219,7 @@ extension RouterBuilder {
         }
     }
 
-    private func routeFor(path: String) -> BasicRoute? {
+    private func route(for path: String) -> BasicRoute? {
         for route in routes where route.path == path {
             return route as? BasicRoute
         }
@@ -228,11 +228,11 @@ extension RouterBuilder {
 }
 
 extension Router {
-    public func splitPathIntoComponents(path: String) -> [String] {
-        return path.split("/")
+    public func splitPathIntoComponents(_ path: String) -> [String] {
+        return path.split(separator: "/")
     }
 
-    public func mergePathComponents(components: [String]) -> String {
+    public func mergePathComponents(_ components: [String]) -> String {
         return "/" + components.joined(separator: "/")
     }
 }

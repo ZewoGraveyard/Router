@@ -61,7 +61,7 @@ public struct Router: HTTP.Router {
 
     }
 
-    public func match(request: Request) -> Route? {
+    public func match(_ request: Request) -> Route? {
         return matcher.match(request)
     }
 }
