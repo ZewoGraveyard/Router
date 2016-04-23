@@ -38,7 +38,7 @@ public final class RouterBuilder {
 }
 
 extension RouterBuilder {
-    public func compose(path: String = "", middleware: Middleware..., router: Router) {
+    public func compose(_ path: String = "", middleware: Middleware..., router: Router) {
         let prefix = self.path + path
         let prefixPathComponentsCount = router.splitPathIntoComponents(prefix).count
 
@@ -73,15 +73,15 @@ extension RouterBuilder {
 }
 
 extension RouterBuilder {
-    public func fallback(_ middleware: Middleware..., responder: Responder) {
-        fallback(middleware, responder: responder)
+    public func fallback(middleware: Middleware..., responder: Responder) {
+        fallback(middleware: middleware, responder: responder)
     }
 
-    public func fallback(_ middleware: Middleware..., respond: Respond) {
-        fallback(middleware, responder: BasicResponder(respond))
+    public func fallback(middleware: Middleware..., respond: Respond) {
+        fallback(middleware: middleware, responder: BasicResponder(respond))
     }
 
-    private func fallback(_ middleware: [Middleware], responder: Responder) {
+    private func fallback(middleware: [Middleware], responder: Responder) {
         fallback = middleware.chain(to: responder)
     }
 }
@@ -185,11 +185,11 @@ extension RouterBuilder {
 }
 
 extension RouterBuilder {
-    public func fallback(path: String, middleware: Middleware..., responder: Responder) {
+    public func fallback(_ path: String, middleware: Middleware..., responder: Responder) {
         addRouteFallback(path: path, middleware: middleware, responder: responder)
     }
 
-    public func fallback(path: String, middleware: Middleware..., respond: Respond) {
+    public func fallback(_ path: String, middleware: Middleware..., respond: Respond) {
         addRouteFallback(path: path, middleware: middleware, responder: BasicResponder(respond))
     }
 }

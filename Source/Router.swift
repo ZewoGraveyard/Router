@@ -38,27 +38,7 @@ public struct Router: HTTP.Router {
         
         self.fallback = builder.fallback
         self.matcher = matcher.init(routes: builder.routes)
-        
-        for route in builder.routes {
-            var options = "OPTIONS"
-            for (method, _) in route.actions {
-                options += ",\(method.description)"
-            }
-            
-            builder.addRoute(method: .options, path: route.path, middleware: middleware, responder: BasicResponder { request in
-                let optionsHeaders = Headers([
-                     "access-control-allow-headers": Header(stringLiteral: "accept, content-type"),
-                     "access-control-allow-methods": Header(stringLiteral: options),
-                     "access-control-allow-origin" : Header(stringLiteral: "*")
-                ])
-                    
-                return Response(headers: optionsHeaders)
-            })
-            
-        }
-        
         self.routes = builder.routes
-
     }
 
     public func match(_ request: Request) -> Route? {
