@@ -10,6 +10,8 @@ install:
 script:
   - swift build --fetch # clones all dependencies
   - rm -rf Packages/*/Tests # deletes dependency's tests until duplicate Package.tests issue can be resolved in SPM. At that point, remove.
+  - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(pwd)/.build/debug # adds the debug build directory to shared libraries search path due to a bug in Linux
+  - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(pwd)/.build/release # adds the release build directory to shared libraries search path due to a bug in Linux
   - swift build
   - swift build --configuration release
   - swift test
