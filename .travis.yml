@@ -1,5 +1,6 @@
 os:
   - linux
+  - osx
 language: generic
 sudo: required
 dist: trusty
@@ -9,5 +10,6 @@ install:
 script:
   - swift build --fetch # clones all dependencies
   - rm -rf Packages/*/Tests # deletes dependency's tests until duplicate Package.tests issue can be resolved in SPM. At that point, remove.
-  - swift build -Xlinker -rpath -Xlinker /home/travis/build/Zewo/Router/.build/debug/
+  - swift build -Xlinker -rpath -Xlinker $(pwd)/.build/debug/
+  - swift build --configuration release -Xlinker -rpath -Xlinker $(pwd)/.build/release/
   - swift test
