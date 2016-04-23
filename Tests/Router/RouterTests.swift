@@ -44,13 +44,9 @@ class RouterTests: XCTestCase {
             }
         }
 
-        print(innerRouter.routes)
-
         let router = Router("/:greeting") { route in
             route.compose("/:adjective", router: innerRouter)
         }
-
-        print(router.routes)
 
         let request = try! Request(method: .get, uri: "/hello/beautiful/world/of/zewo")
         let response = try! router.respond(to: request)
