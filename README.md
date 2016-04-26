@@ -6,6 +6,7 @@
 [![License][mit-badge]][mit-url]
 [![Slack][slack-badge]][slack-url]
 [![Travis][travis-badge]][travis-url]
+[![Codebeat][codebeat-badge]][codebeat-url]
 
 ## Overview
 **Router** is a highly extensibly and customizable HTTP router.
@@ -14,13 +15,25 @@
 
 ```swift
 let router = Router { route in
-    route.get("/:greeting") { request in
-        guard let greeting = request.pathParameters["greeting"] else {
+    route.get("/hello/:name") { request in
+        guard let name = request.pathParameters["name"] else {
             return Response(status: .internalServerError)
         }
-        return Response(body: "Hello, \(greeting)!")
+        return Response(body: "Hello, \(name)!")
     }
 }
+```
+
+## Installation
+
+```swift
+import PackageDescription
+
+let package = Package(
+    dependencies: [
+        .Package(url: "https://github.com/Zewo/Router.git", majorVersion: 0, minor: 5),
+    ]
+)
 ```
 
 ## Support
@@ -34,7 +47,8 @@ If you need any help you can join our [Slack](http://slack.zewo.io) and go to th
 The entire Zewo code base is licensed under MIT. By contributing to Zewo you are contributing to an open and engaged community of brilliant Swift programmers. Join us on [Slack](http://slack.zewo.io) to get to know us!
 
 ## License
-**Router** is released under the MIT license. See [LICENSE](LICENSE) for details.
+
+This project is released under the MIT license. See [LICENSE](LICENSE) for details.
 
 [swift-badge]: https://img.shields.io/badge/Swift-3.0-orange.svg?style=flat
 [swift-url]: https://swift.org
@@ -49,3 +63,5 @@ The entire Zewo code base is licensed under MIT. By contributing to Zewo you are
 [slack-url]: http://slack.zewo.io
 [travis-badge]: https://travis-ci.org/Zewo/Router.svg?branch=master
 [travis-url]: https://travis-ci.org/Zewo/Router
+[codebeat-badge]: https://codebeat.co/badges/6cd4677a-13ec-438b-8f9b-dac802d8f56a
+[codebeat-url]: https://codebeat.co/projects/github-com-zewo-router
