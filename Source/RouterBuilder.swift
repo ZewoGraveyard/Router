@@ -24,15 +24,15 @@
 
 @_exported import HTTP
 
-public final class RouterBuilder {
+public class RouterBuilder {
     let path: String
-    var routes: [Route] = []
+    public var routes: [Route] = []
 
-    var fallback: Responder = BasicResponder { _ in
+    public var fallback: Responder = BasicResponder { _ in
         Response(status: .notFound)
     }
 
-    init(path: String = "") {
+    public init(path: String = "") {
         self.path = path
     }
 }
