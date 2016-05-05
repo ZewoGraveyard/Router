@@ -84,9 +84,7 @@ let router = Router { route in
 }
 ```
 
-There is a lot of repetition going on there. Not only are we prefixing each route with `/api/v1` or `/api/v2`, but we are also repeating `/thing` and `/object`.
-
-This is where `route.compose` comes in to save the day! What we're going to do is extract the `/api`, `/v1`, and `/v2` routers and compose them all together.
+There is a lot of repetition going on there. Not only are we prefixing each route with `/api/v1` or `/api/v2`, but we are also repeating `/thing` and `/object`. This is exactly the kind of situation where you should use `route.compose`. What we're going to do is extract the `/api`, `/v1`, and `/v2` routers and compose them all together into one big router.
 
 Lets start from top. Our new base router is going to look something like this:
 
@@ -96,9 +94,9 @@ let mainRouter = Router { route in
 }
 ```
 
-Great! Now the `mainRouter` is going to be forwarding all of its requests to `apiRouter`.
+The syntax for composing routers is really simple. With that code, the `mainRouter` is now going to be forwarding all of its requests that start with `/api` to `apiRouter`.
 
-`apiRouter` looks similar...
+`apiRouter` is essentially the same thing.
 
 ```swift
 let apiRouter = Router { route in
@@ -107,7 +105,7 @@ let apiRouter = Router { route in
 }
 ```
 
-Now `v1Router` and `v2Router` is where the bulk of the routes actually are. Let's do `v1Router` first.
+`v1Router` and `v2Router` are where the bulk of the routes are going to be. Notice how the routers are totally encapsulated and have no knowledge of how they're going to be embedded in other routers.
 
 ```swift
 let v1Router = Router { route
@@ -116,13 +114,15 @@ let v1Router = Router { route
     route.get("/thing/:id") { ... }
     route.put("/thing/:id") { ... }
 }
+let v2Router = Router { route in
+    route.get("/") { ... }
+    route.get("/object") { ... }
+    route.get("/object/:id") { ... }
+    route.put("/object/:id") { ... }    
+}
 ```
 
-Notice how the router is totally encapsulated and has no knowledge of routes other than its own.
-
-Since `v2Router` is the same thing, it's not worth a separate code snippet. However, we're not done yet! 
-
-For the sake of the example, lets assume that `thing` and `object` are identical, and the _only_ difference between them is that their name changed from version 1 to version 2. To avoid that code duplication, lets create a new `objectRouter` that both `v1Router` and `v2Router` would use.
+For the sake of the example, lets assume that `thing` and `object` are identical, and the _only_ difference between them is that their name changed from version 1 to version 2. To avoid that code duplication, lets create a new `objectRouter` that both `v1Router` and `v2Router` can use under different paths.
 
 ```swift
 let objectRouter = Router { route in
@@ -145,7 +145,7 @@ let v2Router = Router { route in
 }
 ```
 
-While this is obviously a contrived example, the pattern of reusing routers in this way is very powerful. Also, composing multiple routers together allows for better project organization (possibly across multiple files or modules).
+While this is a fairly contrived example, the pattern of reusing routers in this way is very powerful. Also, composing multiple routers together allows for better project organization, which is very important for bigger applications.
 
 ### Extending `RouterBuilder`
 TODO: Write this
