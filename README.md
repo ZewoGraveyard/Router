@@ -65,7 +65,7 @@ In case of conflicting routes, the default matcher ([TrieRouteMatcher](https://g
 That way, with routes `/hello/world`, `/hello/:greeting`, and `/hello/*`, `/hello/world` would get matched by only the static route and not by the parameter or wildcard routes.
 
 ### Composing Routers
-A router can quickly become huge or have a lot of repetitive routes. To this issue, `Router` comes with the ability to compose routers together.
+A router can quickly become huge or have a lot of repetitive routes. To address this issue, `Router` comes with the ability to compose routers together.
 
 Take this router, for example:
 
@@ -120,7 +120,7 @@ let v1Router = Router { route
 
 Notice how the router is totally encapsulated and has no knowledge of routes other than its own.
 
-Since `v2Router` is the same thing, it's not worth a seperate code snippet. However, we're not done yet! 
+Since `v2Router` is the same thing, it's not worth a separate code snippet. However, we're not done yet! 
 
 For the sake of the example, lets assume that `thing` and `object` are identical, and the _only_ difference between them is that their name changed from version 1 to version 2. To avoid that code duplication, lets create a new `objectRouter` that both `v1Router` and `v2Router` would use.
 
