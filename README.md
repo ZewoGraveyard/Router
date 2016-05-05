@@ -24,9 +24,9 @@ server.start()
 ```
 
 ### Path Parameters
-Often times, you want your url's to be dynamic so that you can pass information to the route. With `Router`, any route component that starts with a colon (`:`) is considered a parameter route.
+Often times, you want your paths to be dynamic so that you can embed information without using query parameters. With `Router`, any route component that starts with a colon (`:`) is considered a parameter.
 
-That is, the route `/hello/:object` will match `/hello/world`, `/hello/123`, and so on. However, it will not match just `/hello` or `/hello/world/123`.
+A parameter component will match any string and allow you to access its value through the request. That is, the route `/hello/:object` will match `/hello/world`, `/hello/123`, and so on. However, it will not match just `/hello` or `/hello/world/123`.
 
 In your route handler, you can extract the value of the path parameter through the `pathParemeters` property on `Request` like so:
 
@@ -41,7 +41,7 @@ route.get("/hello/:object") { request in
 
 The above route will not only respond to `/hello/world` with `"Hello, world!"`, but also to `/hello/there` with `"Hello, there!"` and to `/hello/123` with `"Hello, 123!"` (and so on).
 
-There is no limit to how many path parameters can be in a url. For example, the following route will respond to `/hey/there` with `"hey, there!"` as expected.
+There is no limit to how many path parameters can be in a url. For example, the following route, which is defined as `/:greeting/:location`, will respond to `/hey/there` with `"hey, there!"` as expected.
 
 ```swift
 route.get("/:greeting/:location") { request in
@@ -62,7 +62,7 @@ In case of conflicting routes, the default matcher ([TrieRouteMatcher](https://g
 2. parameter
 3. wildcard
 
-That way, with routes `/hello/world` and `/hello/*`, `/hello/world` would get matched by the first route and not by the second.
+That way, with routes `/hello/world`, `/hello/:greeting`, and `/hello/*`, `/hello/world` would get matched by only the static route and not by the parameter or wildcard routes.
 
 ### Extending `RouterBuilder`
 TODO: Write this
