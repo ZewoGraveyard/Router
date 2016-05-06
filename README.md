@@ -148,7 +148,80 @@ let v2Router = Router { route in
 While this is a fairly contrived example, the pattern of reusing routers in this way is very powerful. Also, composing multiple routers together allows for better project organization, which is very important for bigger applications.
 
 ### Extending `RouterBuilder`
-TODO: Write this
+One of the ideals of Zewo is to provide highly-extensible components, and `Router` is a great example of this. The way `Router` is implemented behind the scenes is through a class called `RouterBuilder`, which is passed in to the closure you provide when instantiating the `Router`. 
+
+By default, `RouterBuilder` has support for the following operations:
+  - get
+  - options
+  - post
+  - put
+  - patch
+  - delete
+  - methods
+  - fallback
+  - addRoute
+  - compose
+
+
+Let's pretend that you were looking through your codebase and found that the following pattern was being repeated a lot:
+
+```swift
+route.get("/:id") { request in
+    guard let id = request.pathParameters["id"] else {
+        return Response(status: .badRequest)
+    }
+    // do something with id
+    return Response(...)
+}
+```
+
+What we want is to overload the `get` method and create an API that looks something like this:
+
+```swift
+route.get { request, id in
+    // do something with id
+    return Response(...)
+}
+```
+
+Now that we have a target, let's get started. The only modification we're really making here is adding another parameter to the handler. To understand how to do this, let me break down the current current decleration of `get`:
+
+```swift
+get(
+  _ path: String, // the path (ex: "/hello") (removed)
+  middleware: Middleware...,  // middleware (unchanged)
+  respond: Respond // typealias for Request throws -> Response (modified)
+)
+```
+
+Our method is going to be removing the path parameter altogether (it will always be "/:id"), and modifying the `respond` parameter to be `(Request, String) throws -> Response`.
+
+```swift
+get(
+    middleware: Middleware...,
+    respond: (Request, String) throws -> Response
+)
+```
+
+The implementation for this is going to be really simple - we're just wrapping the `get` method that is already provided for us.
+
+```swift
+func get(...) {
+    // call the default `get` method
+    get("/:id", middleware: middleware) { request in
+        // get the id parameter
+        guard let id = request.pathParameters["id"] else {
+            return Response(status: .internalServerError)
+        }
+        // call the responder with the request and id
+        let response = try respond(request, id)
+        // return the result of that responder
+        return response
+    }
+}
+```
+
+It's that simple! All we have to do now is put the code in an extension to `RouterBuilder` and the code snippet at the beginning of the section will work as expected.
 
 ### Injecting Custom Matchers
 TODO: Write this
