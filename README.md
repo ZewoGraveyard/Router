@@ -224,7 +224,51 @@ func get(...) {
 It's that simple! All we have to do now is put the code in an extension to `RouterBuilder` and the code snippet at the beginning of the section will work as expected.
 
 ### Injecting Custom Matchers
-TODO: Write this
+In some (rare) cases, you may want to add functionality to the matching part of the router. For example, what if you want to denote parameters with `<param>` instead of `:param`, or split on `.` instead of `/` (like slack's api)? Or, more likely, what if you want to match routes based on a regular expression instead of something static? To allow this kind of behavior, you can inject your own `RouteMatcher` into the `Router` upon initialization, like so:
+
+```swift
+let router = Router(matcher: SomeSpecialMatcher.Self)
+```
+
+By default, the matcher is set to [TrieRouteMatcher](https://github.com/Zewo/TrieRouteMatcher.git), which is a high-performance matcher that supports all of the basic route matching functionality (parameters, wildcards, etc.).
+
+To make your own matcher, you simply have to conform to the `RouteMatcher` protocol.
+
+```swift
+public protocol RouteMatcher {
+    var routes: [Route] { get }
+    init(routes: [Route])
+    func match(_ request: Request) -> Route?
+}
+```
+
+A really simple matcher which only matches exact paths would look something like this:
+
+```swift
+public struct SimpleRouteMatcher {
+    let routes: [Route]
+    init(routes: [Route]) {
+        self.routes = routes
+    }
+    func match(_ request: Request) -> Route? {
+        for route in routes {
+            if route.path == request.path {
+                return route
+            }
+        }
+        return nil
+    }
+}
+```
+
+You can then use the route matcher in your own routers!
+```swift
+Router(matcher: SimpleRouteMatcher.self) { route in
+    route.get("/hello") { request in
+        return Response(body: "Hello, world!")
+    }
+}
+```
 
 ### Middleware
 TODO: Write this
