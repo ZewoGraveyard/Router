@@ -148,20 +148,19 @@ let v2Router = Router { route in
 While this is a fairly contrived example, the pattern of reusing routers in this way is very powerful. Also, composing multiple routers together allows for better project organization, which is very important for bigger applications.
 
 ### Extending `RouterBuilder`
-One of the ideals of Zewo is to provide highly-extensible components, and `Router` is a great example of this. The way `Router` is implemented behind the scenes is through a class called `RouterBuilder`, which is passed in to the closure you provide when instantiating the `Router`. 
+One of the ideals of Zewo is to provide highly-extensible components, and `Router` is a great example of this. The way `Router` is implemented behind the scenes is through a class called `RouterBuilder`, which is passed in to the closure you provide when instantiating the `Router`.
 
 By default, `RouterBuilder` has support for the following operations:
-  - get
-  - options
-  - post
-  - put
-  - patch
-  - delete
-  - methods
-  - fallback
-  - addRoute
-  - compose
-
+- get
+- options
+- post
+- put
+- patch
+- delete
+- methods
+- fallback
+- addRoute
+- compose
 
 Let's pretend that you were looking through your codebase and found that the following pattern was being repeated a lot:
 
@@ -262,6 +261,7 @@ public struct SimpleRouteMatcher {
 ```
 
 You can then use the route matcher in your own routers!
+
 ```swift
 Router(matcher: SimpleRouteMatcher.self) { route in
     route.get("/hello") { request in
