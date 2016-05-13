@@ -58,11 +58,80 @@ route.get("/:greeting/:location") { request in
 You can also use a wildcard (`*`) in your routes, which matches _all_ paths beginning with the given path parameters preceding the wildcard. For example, `/static/*` will match `/static/script.js` and `/static/scripts/script.js` and so on, but not just `/static`.
 
 In case of conflicting routes, the default matcher ([TrieRouteMatcher](https://github.com/Zewo/TrieRouteMatcher)) will rank them based on the following order of priority:
+
 1. static
 2. parameter
 3. wildcard
 
 That way, with routes `/hello/world`, `/hello/:greeting`, and `/hello/*`, `/hello/world` would get matched by only the static route and not by the parameter or wildcard routes.
+
+### Applying and creating Middleware
+Middleware is a really powerful part of the Zewo application structure. `Router`, along with all `Responder`s, can have middleware applied to them. Let's create a simple middleware which will catch errors in the responder chain and respond with a customizable error page. Zewo already provides this for you by the name of [Recovery Middleware](https://github.com/Zewo/RecoveryMiddleware), but as an exercise let's try re-implement it.
+
+The ideal syntax that we want to end up with is this:
+
+```swift
+enum CustomError: ErrorProtocol {
+    case badId
+}
+let recovery = RecoveryMiddleware { error in
+    switch error {
+        case CustomError.badId:
+            return Response(body: "The id doesn't exist!")
+        default:
+            throw error // dont handle, rethrow it
+    }
+}
+let router = Router(middleware: recovery) { route in
+    route.get("/:id") { route in
+        guard let
+          id = request.pathParameters["id"]
+          where id != "-1"
+          else {
+            throw CustomError.badId
+        }
+        // do something with id...
+        return Response(...)
+    }
+}
+```
+
+The definition of middleware actually comes from [Open Swift](https://github.com/open-swift/S4/blob/master/Sources/Middleware.swift), which is a standard organization that Zewo and several other server-side-swift players have started. The protocol is quite simple:
+
+```swift
+public protocol Middleware {
+    func respond(to request: Request, chainingTo next: Responder) throws -> Response
+}
+```
+
+So, here is a simple starter definition of our middleware.
+
+```swift
+struct RecoveryMiddleware {
+    let recover: (ErrorProtocol) throws -> Response
+
+    public func respond(to request: Request, chainingTo next: Responder) throws -> Response {
+        // middleware code goes here
+    }
+}
+```
+
+Let's study the required `respond` method. We are passed in the request and the next responder in the responder chain. This gives us a lot of flexibility: we can modify the request before we pass it to the responder, and modify the response that the responder generates. We can also catch any errors that the responder may throw. This is what we are going to be doing.
+
+```swift
+func respond(to request: Request, chainingTo next: Responder) throws -> Response {
+    // we don't modify the request beforehand
+    do {
+        // return the next responder, catch possible errors
+        return try next.respond(to: request)
+    } catch {
+        // pass the error to the `recover` method
+        return try self.recover(error)
+    }
+}
+```
+
+That's it! It's very simple and powerful. We have now achieved the behavior that was showcased in the first code block.
 
 ### Composing Routers
 A router can quickly become huge or have a lot of repetitive routes. To address this issue, `Router` comes with the ability to compose routers together.
@@ -269,9 +338,6 @@ Router(matcher: SimpleRouteMatcher.self) { route in
     }
 }
 ```
-
-### Middleware
-TODO: Write this
 
 ## Community
 [![Slack](http://s13.postimg.org/ybwy92ktf/Slack.png)](http://slack.zewo.io)
