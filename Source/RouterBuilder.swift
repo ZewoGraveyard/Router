@@ -90,11 +90,11 @@ extension RouterBuilder {
     public func get(_ path: String, middleware: Middleware..., responder: Responder) {
         get(path, middleware: middleware, responder: responder)
     }
-    
+
     public func get(_ path: String, middleware: Middleware..., respond: Respond) {
         get(path, middleware: middleware, responder: BasicResponder(respond))
     }
-    
+
     private func get(_ path: String, middleware: [Middleware], responder: Responder) {
         addRoute(method: .get, path: path, middleware: middleware, responder: responder)
     }
@@ -104,11 +104,11 @@ extension RouterBuilder {
     public func options(_ path: String, middleware: Middleware..., responder: Responder) {
         options(path, middleware: middleware, responder: responder)
     }
-    
+
     public func options(_ path: String, middleware: Middleware..., respond: Respond) {
         options(path, middleware: middleware, responder: BasicResponder(respond))
     }
-    
+
     private func options(_ path: String, middleware: [Middleware], responder: Responder) {
         addRoute(method: .options, path: path, middleware: middleware, responder: responder)
     }
@@ -202,7 +202,7 @@ extension RouterBuilder {
         if let route = route(for: routePath) {
             route.fallback = fallback
         } else {
-            let route = BasicRoute(path: path, fallback: fallback)
+            let route = BasicRoute(path: routePath, fallback: fallback)
             routes.append(route)
         }
     }
@@ -214,7 +214,7 @@ extension RouterBuilder {
         if let route = route(for: routePath) {
             route.addAction(method: method, action: action)
         } else {
-            let route = BasicRoute(path: path, actions: [method: action])
+            let route = BasicRoute(path: routePathroutePath, actions: [method: action])
             routes.append(route)
         }
     }
