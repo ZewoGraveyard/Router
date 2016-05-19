@@ -39,7 +39,7 @@ class RouterTests: XCTestCase {
 
     func testNestedRoutersWithParameters() {
         let router = Router("/:greeting") { route in
-            route.compose("/:adjective", router: Router { route in
+            route.compose(path: "/:adjective", router: Router { route in
                 route.get("/:location/of/zewo") { request in
                     return Response(status: .ok)
                 }
@@ -47,7 +47,7 @@ class RouterTests: XCTestCase {
         }
 
         let request = try! Request(method: .get, uri: "/hello/beautiful/world/of/zewo")
-        let response = try! router.respond(request)
+        let response = try! router.respond(to: request)
         XCTAssertEqual(response.statusCode, 200)
     }
 
@@ -66,8 +66,8 @@ class RouterTests: XCTestCase {
 
         let request1 = try Request(method: .get, uri: "/path")
         let request2 = try Request(method: .post, uri: "/path")
-        let response1 = try mainRouter.respond(request1)
-        let response2 = try mainRouter.respond(request2)
+        let response1 = try mainRouter.respond(to: request1)
+        let response2 = try mainRouter.respond(to: request2)
 
         XCTAssertEqual(response1.status.statusCode, 200)
         XCTAssertEqual(response2.status.statusCode, 200)
