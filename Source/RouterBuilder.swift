@@ -214,7 +214,7 @@ extension RouterBuilder {
         if let route = route(for: routePath) {
             route.addAction(method: method, action: action)
         } else {
-            let route = BasicRoute(path: routePathroutePath, actions: [method: action])
+            let route = BasicRoute(path: routePath, actions: [method: action])
             routes.append(route)
         }
     }
