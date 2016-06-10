@@ -38,9 +38,10 @@ public class RouterBuilder {
 }
 
 extension RouterBuilder {
-    public func compose(_ path: String = "", middleware: Middleware..., router: Router) {
+    public func compose(_ path: String = "", middleware: Middleware..., router: HTTP.Router) {
         let prefix = self.path + path
-        let prefixPathComponentsCount = router.splitPathIntoComponents(prefix).count
+
+        let prefixPathComponentsCount = prefix.split(separator: "/").count
 
         for route in router.routes {
             for (method, _) in route.actions {
@@ -55,9 +56,9 @@ extension RouterBuilder {
                             return Response(status: .badRequest)
                         }
 
-                        let requestPathComponents = router.splitPathIntoComponents(path)
+                        let requestPathComponents = path.split(separator: "/")
                         let shortenedRequestPathComponents = requestPathComponents.dropFirst(prefixPathComponentsCount)
-                        let shortenedPath = router.mergePathComponents(Array(shortenedRequestPathComponents))
+                        let shortenedPath = "/" + shortenedRequestPathComponents.joined(separator: "/")
 
                         request.uri.path = shortenedPath
                         return try router.respond(to: request)
@@ -67,7 +68,7 @@ extension RouterBuilder {
         }
     }
 
-    public func compose(_ router: Router) {
+    public func compose(_ router: HTTP.Router) {
         compose(router: router)
     }
 }
@@ -227,13 +228,13 @@ extension RouterBuilder {
     }
 }
 
-extension Router {
-    public func splitPathIntoComponents(_ path: String) -> [String] {
-        return path.split(separator: "/")
-    }
-
-    public func mergePathComponents(_ components: [String]) -> String {
-        return "/" + components.joined(separator: "/")
-    }
-}
-
+// TODO: Move this into the RouteMatcher protocol
+//extension Router {
+//    public func splitPathIntoComponents(_ path: String) -> [String] {
+//        return path.split(separator: "/")
+//    }
+//
+//    public func mergePathComponents(_ components: [String]) -> String {
+//        return "/" + components.joined(separator: "/")
+//    }
+//}
