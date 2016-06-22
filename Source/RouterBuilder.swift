@@ -38,7 +38,7 @@ public class RouterBuilder {
 }
 
 extension RouterBuilder {
-    public func compose(_ path: String = "", middleware: Middleware..., router: HTTP.Router) {
+    public func compose(_ path: String = "", middleware: Middleware..., router: RouterProtocol) {
         let prefix = self.path + path
 
         let prefixPathComponentsCount = prefix.split(separator: "/").count
@@ -68,7 +68,7 @@ extension RouterBuilder {
         }
     }
 
-    public func compose(_ router: HTTP.Router) {
+    public func compose(_ router: RouterProtocol) {
         compose(router: router)
     }
 }
