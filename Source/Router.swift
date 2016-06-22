@@ -25,7 +25,7 @@
 @_exported import TrieRouteMatcher
 @_exported import RegexRouteMatcher
 
-public struct Router: HTTP.Router {
+public struct Router: RouterProtocol {
     public let middleware: [Middleware]
     public let routes: [Route]
     public let fallback: Responder
