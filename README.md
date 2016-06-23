@@ -15,6 +15,7 @@
 import PackageDescription
 
 let package = Package(
+    name: "HelloZewo"
     dependencies: [
         .Package(url: "https://github.com/Zewo/Router.git", majorVersion: 0, minor: 7),
     ]
@@ -26,6 +27,8 @@ let package = Package(
 A simple 'hello world' example looks like so:
 
 ```swift
+import Router
+
 let router = Router { route in
     route.get("/hello") { request in
         return Response(body: "Hello, Zewo!")
@@ -33,19 +36,24 @@ let router = Router { route in
 }
 ```
 
-The router can then be piped into anything that takes an [S4-compatible `Responder`](https://github.com/open-swift/S4). For example, using the [`HTTPServer`](https://github.com/VeniceX/HTTPServer) module:
+The router can then be passed to anything that takes an [S4-compatible `Responder`](https://github.com/open-swift/S4). A `Responder` is just something that takes a `Request` and returns a `Response`. `Router`'s role as a `Responder` is to take that `Request` and pass it along to the route that matches the path.
+
+The most common use of a route would be to handle requests from an HTTPServer. Using the [`HTTPServer`](https://github.com/VeniceX/HTTPServer) module, for example, we can do just that:
 
 ```swift
 let server = Server(responder: router)
 server.start()
 ```
 
+If you were to execute the above code and go to `localhost:8080/hello` in your browser, you would see a plaintext response of "Hello, Zewo!".
+
 ### Path Parameters
 Often times, you want your paths to be dynamic so that you can embed information without using query parameters. With `Router`, any route component that starts with a colon (`:`) is considered a parameter.
 
-A parameter component will match any string and allow you to access its value through the request. That is, the route `/hello/:object` will match `/hello/world`, `/hello/123`, and so on. However, it will not match just `/hello` or `/hello/world/123`.
+A parameter component will match any string and let it take its place. That is, the route `/hello/:object` will match `/hello/world` and `/hello/123`. However, it will not match `/hello` or `/hello/world/123`.
 
-In your route handler, you can extract the value of the path parameter through the `pathParemeters` property on `Request` like so:
+#### Extracting Path Parameter Values
+In your route handler, you can extract the value of the path parameter through the `pathParameters` property on `Request` like so:
 
 ```swift
 route.get("/hello/:object") { request in
@@ -72,7 +80,10 @@ route.get("/:greeting/:location") { request in
 }
 ```
 
+#### Wildcard
 You can also use a wildcard (`*`) in your routes, which matches _all_ paths beginning with the given path parameters preceding the wildcard. For example, `/static/*` will match `/static/script.js` and `/static/scripts/script.js` and so on, but not just `/static`.
+
+#### Route Conflicts
 
 In case of conflicting routes, the default matcher ([TrieRouteMatcher](https://github.com/Zewo/TrieRouteMatcher)) will rank them based on the following order of priority:
 1. static
@@ -82,9 +93,9 @@ In case of conflicting routes, the default matcher ([TrieRouteMatcher](https://g
 That way, with routes `/hello/world`, `/hello/:greeting`, and `/hello/*`, `/hello/world` would get matched by only the static route and not by the parameter or wildcard routes.
 
 ### Applying and creating Middleware
-Middleware is a really powerful part of the Zewo application structure. `Router`, along with all `Responder`s, can have middleware applied to them. Let's create a simple middleware which will catch errors in the responder chain and respond with a customizable error page. Zewo already provides this for you by the name of [Recovery Middleware](https://github.com/Zewo/RecoveryMiddleware), but as an exercise let's try re-implement it.
+Middleware is a powerful part of the Zewo application structure. `Router`, along with all `Responder`s, can have middleware applied to them. We will create a middleware which will catch errors in the responder chain and respond with a customizable error page. Zewo already provides this for you by the name of [Recovery Middleware](https://github.com/Zewo/RecoveryMiddleware), but as an exercise we will re-implement it anyway.
 
-The ideal syntax that we want to end up with is this:
+This is the ideal syntax that we want to end up with:
 
 ```swift
 enum CustomError: ErrorProtocol {
@@ -112,7 +123,7 @@ let router = Router(middleware: recovery) { route in
 }
 ```
 
-The definition of middleware actually comes from [Open Swift](https://github.com/open-swift/S4/blob/master/Sources/Middleware.swift), which is a standard organization that Zewo and several other server-side-swift players have started. The protocol is quite simple:
+The definition of middleware actually comes from [Open Swift](https://github.com/open-swift/S4/blob/master/Sources/Middleware.swift), which is a standard organization that Zewo and several other server-side-swift players have started. The `Middleware` protocol:
 
 ```swift
 public protocol Middleware {
@@ -120,7 +131,7 @@ public protocol Middleware {
 }
 ```
 
-So, here is a simple starter definition of our middleware.
+So, here is the starting boilerplate for our middleware.
 
 ```swift
 struct RecoveryMiddleware {
@@ -132,7 +143,7 @@ struct RecoveryMiddleware {
 }
 ```
 
-Let's study the required `respond` method. We are passed in the request and the next responder in the responder chain. This gives us a lot of flexibility: we can modify the request before we pass it to the responder, and modify the response that the responder generates. We can also catch any errors that the responder may throw. This is what we are going to be doing.
+Let's study the required `respond` method. We are passed in the request and the next responder in the responder chain. This gives us a lot of flexibility: we can modify the request before we pass it to the responder, and modify the response that the responder generates. We can also catch any errors that the responder may throw:
 
 ```swift
 func respond(to request: Request, chainingTo next: Responder) throws -> Response {
@@ -171,7 +182,7 @@ let router = Router { route in
 
 There is a lot of repetition going on there. Not only are we prefixing each route with `/api/v1` or `/api/v2`, but we are also repeating `/thing` and `/object`. This is exactly the kind of situation where you should use `route.compose`. What we're going to do is extract the `/api`, `/v1`, and `/v2` routers and compose them all together into one big router.
 
-Lets start from top. Our new base router is going to look something like this:
+Let's start from top. Our new base router is going to look something like this:
 
 ```swift
 let mainRouter = Router { route in
@@ -179,7 +190,7 @@ let mainRouter = Router { route in
 }
 ```
 
-The syntax for composing routers is really simple. With that code, the `mainRouter` is now going to be forwarding all of its requests that start with `/api` to `apiRouter`.
+With the `route.compose` call, the `mainRouter` is now going to be forwarding all of its requests that start with `/api` to `apiRouter`.
 
 `apiRouter` is essentially the same thing.
 
@@ -233,7 +244,7 @@ let v2Router = Router { route in
 While this is a fairly contrived example, the pattern of reusing routers in this way is very powerful. Also, composing multiple routers together allows for better project organization, which is very important for bigger applications.
 
 ### Extending `RouterBuilder`
-One of the ideals of Zewo is to provide highly-extensible components, and `Router` is a great example of this. The way `Router` is implemented behind the scenes is through a class called `RouterBuilder`, which is passed in to the closure you provide when instantiating the `Router`.
+One of the objectives of Zewo is to provide highly-extensible components, and `Router` is a great example of this. The way `Router` is implemented behind the scenes is through a class called `RouterBuilder`, which is passed in to the closure you provide when instantiating the `Router`.
 
 By default, `RouterBuilder` has support for the following operations:
 - get
@@ -247,7 +258,7 @@ By default, `RouterBuilder` has support for the following operations:
 - addRoute
 - compose
 
-Let's pretend that you were looking through your codebase and found that the following pattern was being repeated a lot:
+Assume that you were looking through your codebase and found that the following pattern was being repeated:
 
 ```swift
 route.get("/:id") { request in
@@ -268,7 +279,7 @@ route.get { request, id in
 }
 ```
 
-Now that we have a target, let's get started. The only modification we're really making here is adding another parameter to the handler. To understand how to do this, let me break down the current current decleration of `get`:
+Now that we have a target, it's time to get started. The only modification we're really making here is adding another parameter to the handler. To understand how to do this, let's break down the current current decleration of `get`:
 
 ```swift
 get(
@@ -278,7 +289,7 @@ get(
 )
 ```
 
-Our method is going to be removing the path parameter altogether (it will always be "/:id"), and modifying the `respond` parameter to be `(Request, String) throws -> Response`.
+Our method is going to be removing the path parameter altogether (it will always be `/:id`), and modifying the `respond` parameter to be `(Request, String) throws -> Response`.
 
 ```swift
 get(
@@ -287,7 +298,7 @@ get(
 )
 ```
 
-The implementation for this is going to be really simple - we're just wrapping the `get` method that is already provided for us.
+The implementation for this is going to be really simple - we're just wrapping around the `get` method that is already provided for us.
 
 ```swift
 func get(...) {
@@ -305,10 +316,10 @@ func get(...) {
 }
 ```
 
-It's that simple! All we have to do now is put the code in an extension to `RouterBuilder` and the code snippet at the beginning of the section will work as expected.
+That's it! All we have to do now is put the code in an extension to `RouterBuilder` and the code snippet at the beginning of the section will work as expected.
 
 ### Injecting Custom Matchers
-In some (rare) cases, you may want to add functionality to the matching part of the router. For example, what if you want to denote parameters with `<param>` instead of `:param`, or split on `.` instead of `/` (like slack's api)? Or, more likely, what if you want to match routes based on a regular expression instead of something static? To allow this kind of behavior, you can inject your own `RouteMatcher` into the `Router` upon initialization, like so:
+In some (rare) cases, you may want to add functionality to the matching component of the router. For example, what if you want to denote parameters with `<param>` instead of `:param`, or split on `.` instead of `/` (like Slack's API)? Or, more likely, what if you want to match routes based on a regular expression instead of something static? To allow this kind of behavior, you can inject your own `RouteMatcher` into the `Router` upon initialization, like so:
 
 ```swift
 let router = Router(matcher: SomeSpecialMatcher.Self)
@@ -316,7 +327,7 @@ let router = Router(matcher: SomeSpecialMatcher.Self)
 
 By default, the matcher is set to [TrieRouteMatcher](https://github.com/Zewo/TrieRouteMatcher.git), which is a high-performance matcher that supports all of the basic route matching functionality (parameters, wildcards, etc.).
 
-To make your own matcher, you simply have to conform to the `RouteMatcher` protocol.
+To make your own matcher, you must conform to the `RouteMatcher` protocol.
 
 ```swift
 public protocol RouteMatcher {
@@ -326,7 +337,7 @@ public protocol RouteMatcher {
 }
 ```
 
-A really simple matcher which only matches exact paths would look something like this:
+A basic matcher which only matches exact paths would look something like this:
 
 ```swift
 public struct SimpleRouteMatcher {
