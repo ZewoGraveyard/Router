@@ -24,29 +24,30 @@
 
 @_exported import HTTP
 
-public final class RouterBuilder {
+public class RouterBuilder {
     let path: String
-    var routes: [Route] = []
+    public var routes: [Route] = []
 
-    var fallback: Responder = BasicResponder { _ in
+    public var fallback: Responder = BasicResponder { _ in
         Response(status: .notFound)
     }
 
-    init(path: String = "") {
+    public init(path: String = "") {
         self.path = path
     }
 }
 
 extension RouterBuilder {
-    public func compose(path: String = "", middleware: Middleware..., router: Router) {
+    public func compose(_ path: String = "", middleware: Middleware..., router: RouterProtocol) {
         let prefix = self.path + path
-        let prefixPathComponentsCount = router.splitPathIntoComponents(prefix).count
+
+        let prefixPathComponentsCount = prefix.split(separator: "/").count
 
         for route in router.routes {
             for (method, _) in route.actions {
                 addRoute(
                     method: method,
-                    path: prefix + route.path,
+                    path: path + route.path,
                     middleware: middleware,
                     responder: BasicResponder { request in
                         var request = request
@@ -55,9 +56,9 @@ extension RouterBuilder {
                             return Response(status: .badRequest)
                         }
 
-                        let requestPathComponents = router.splitPathIntoComponents(path)
+                        let requestPathComponents = path.split(separator: "/")
                         let shortenedRequestPathComponents = requestPathComponents.dropFirst(prefixPathComponentsCount)
-                        let shortenedPath = router.mergePathComponents(Array(shortenedRequestPathComponents))
+                        let shortenedPath = "/" + shortenedRequestPathComponents.joined(separator: "/")
 
                         request.uri.path = shortenedPath
                         return try router.respond(to: request)
@@ -67,21 +68,21 @@ extension RouterBuilder {
         }
     }
 
-    public func compose(_ router: Router) {
+    public func compose(_ router: RouterProtocol) {
         compose(router: router)
     }
 }
 
 extension RouterBuilder {
-    public func fallback(_ middleware: Middleware..., responder: Responder) {
-        fallback(middleware, responder: responder)
+    public func fallback(middleware: Middleware..., responder: Responder) {
+        fallback(middleware: middleware, responder: responder)
     }
 
-    public func fallback(_ middleware: Middleware..., respond: Respond) {
-        fallback(middleware, responder: BasicResponder(respond))
+    public func fallback(middleware: Middleware..., respond: Respond) {
+        fallback(middleware: middleware, responder: BasicResponder(respond))
     }
 
-    private func fallback(_ middleware: [Middleware], responder: Responder) {
+    private func fallback(middleware: [Middleware], responder: Responder) {
         fallback = middleware.chain(to: responder)
     }
 }
@@ -90,11 +91,11 @@ extension RouterBuilder {
     public func get(_ path: String, middleware: Middleware..., responder: Responder) {
         get(path, middleware: middleware, responder: responder)
     }
-    
+
     public func get(_ path: String, middleware: Middleware..., respond: Respond) {
         get(path, middleware: middleware, responder: BasicResponder(respond))
     }
-    
+
     private func get(_ path: String, middleware: [Middleware], responder: Responder) {
         addRoute(method: .get, path: path, middleware: middleware, responder: responder)
     }
@@ -104,11 +105,11 @@ extension RouterBuilder {
     public func options(_ path: String, middleware: Middleware..., responder: Responder) {
         options(path, middleware: middleware, responder: responder)
     }
-    
+
     public func options(_ path: String, middleware: Middleware..., respond: Respond) {
         options(path, middleware: middleware, responder: BasicResponder(respond))
     }
-    
+
     private func options(_ path: String, middleware: [Middleware], responder: Responder) {
         addRoute(method: .options, path: path, middleware: middleware, responder: responder)
     }
@@ -185,11 +186,11 @@ extension RouterBuilder {
 }
 
 extension RouterBuilder {
-    public func fallback(path: String, middleware: Middleware..., responder: Responder) {
+    public func fallback(_ path: String, middleware: Middleware..., responder: Responder) {
         addRouteFallback(path: path, middleware: middleware, responder: responder)
     }
 
-    public func fallback(path: String, middleware: Middleware..., respond: Respond) {
+    public func fallback(_ path: String, middleware: Middleware..., respond: Respond) {
         addRouteFallback(path: path, middleware: middleware, responder: BasicResponder(respond))
     }
 }
@@ -202,7 +203,7 @@ extension RouterBuilder {
         if let route = route(for: routePath) {
             route.fallback = fallback
         } else {
-            let route = BasicRoute(path: path, fallback: fallback)
+            let route = BasicRoute(path: routePath, fallback: fallback)
             routes.append(route)
         }
     }
@@ -214,7 +215,7 @@ extension RouterBuilder {
         if let route = route(for: routePath) {
             route.addAction(method: method, action: action)
         } else {
-            let route = BasicRoute(path: path, actions: [method: action])
+            let route = BasicRoute(path: routePath, actions: [method: action])
             routes.append(route)
         }
     }
@@ -227,13 +228,13 @@ extension RouterBuilder {
     }
 }
 
-extension Router {
-    public func splitPathIntoComponents(_ path: String) -> [String] {
-        return path.split(separator: "/")
-    }
-
-    public func mergePathComponents(_ components: [String]) -> String {
-        return "/" + components.joined(separator: "/")
-    }
-}
-
+// TODO: Move this into the RouteMatcher protocol
+//extension Router {
+//    public func splitPathIntoComponents(_ path: String) -> [String] {
+//        return path.split(separator: "/")
+//    }
+//
+//    public func mergePathComponents(_ components: [String]) -> String {
+//        return "/" + components.joined(separator: "/")
+//    }
+//}
