@@ -25,20 +25,25 @@
 @_exported import HTTP
 
 public class RouterBuilder {
-    let path: String
+    public let path: String
     public var routes: [Route] = []
 
     public var fallback: Responder = BasicResponder { _ in
         Response(status: .notFound)
     }
 
-    public init(path: String = "") {
+    public init(path: String) {
         self.path = path
     }
 }
 
 extension RouterBuilder {
-    public func compose(_ path: String = "", middleware: Middleware..., router: HTTP.Router) {
+    public func compose(_ router: RouterRepresentable) {
+        compose(router: router)
+    }
+    
+    public func compose(_ path: String = "", middleware: Middleware..., router representable: RouterRepresentable) {
+        let router = representable.router
         let prefix = self.path + path
 
         let prefixPathComponentsCount = prefix.split(separator: "/").count
@@ -66,10 +71,6 @@ extension RouterBuilder {
                 )
             }
         }
-    }
-
-    public func compose(_ router: HTTP.Router) {
-        compose(router: router)
     }
 }
 
